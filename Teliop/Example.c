@@ -1,6 +1,8 @@
-// example.c
+// Example.c
 
 /*
+
+	(C) Copyright 2014 John Doe
 
 	This file is part of the FTC team 6157 application code.
 
@@ -9,7 +11,7 @@
 	General Public License as published by the Free Software
 	Foundation, either version 2 of the License, or (at your
 	option) any later version.
-
+	
 	FTC team 6157 application code is distributed in the hope that
 	it will be useful, but WITHOUT ANY WARRANTY; without even the
 	implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
@@ -22,8 +24,6 @@
 */
 
 /*
-
-	(C) Copyright 2014 John Doe
 
 	This is an example teliop program.
 	

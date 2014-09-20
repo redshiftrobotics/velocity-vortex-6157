@@ -2,6 +2,8 @@
 
 /*
 
+	(C) Copyright 2014 John Doe
+
 	This file is part of the FTC team 6157 application code.
 
 	FTC team 6157 application code is free software: you can
