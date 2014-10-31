@@ -3,7 +3,7 @@
 
 /*
 
-	(C) Copyright 2014 Samin Zach
+	(C) Copyright 2014 Samin Zach, Jesse Walling
 
 	This file is part of the FTC team 6157 application code.
 
