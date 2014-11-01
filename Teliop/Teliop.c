@@ -5,7 +5,7 @@
 
 /*
 
-(C) Copyright 2014 Samin Zach
+(C) Copyright 2014 Samin Zach and Matthew Kelsey
 
 This file is part of the FTC team 6157 application code.
 
@@ -34,7 +34,8 @@ License along with FTC team 6157 application code. If not, see
 
 #include "JoystickDriver.c"
 
-int constrain(int x, int min, int max){
+int constrain(int x, int min, int max)
+{
 	if (x > max)
 		return max;
 	if (x < min)
@@ -56,35 +57,66 @@ int joymotor (int joy)
 	return constrain(motor,-100,100);
 }
 
+
+//toggle
+bool toggle(int joybtn, bool toggleSwitch)
+{
+	bool btnup = true;
+	if(joy1Btn(joybtn) == 1 && btnup == true)
+		{
+			//transition down
+			toggleSwitch =! toggleSwitch;
+			btnup = false;
+		}
+		else if(joy1Btn(joybtn) == 0 && btnup == false)
+		{
+			//transition up
+			btnup = true;
+		}
+
+		return toggleSwitch;
+}
+
+
 task main()
 {
 	int SpeedLeft;
 	int SpeedRight;
 	int servoangle;
+	bool btnup = true;
+	bool grabberToggle = true;
 	while(true)
 	{
+
+//driving
+
 		getJoystickSettings(joystick);
 
-
 		SpeedLeft = joymotor(-joystick.joy1_y2);
-
 		SpeedRight = joymotor(joystick.joy1_y1);
 
+//sweeper
 
-		if(joy1Btn(1) == 1)
+		if(joy1Btn(8) == 1)
 		{
-			servoangle = 150;
+			motor(motorA) = 100;
+			motor(motorB) = 100;
 		}
-		else if (joy1Btn(2) == 1)
+		else if (joy1Btn(7) == 1)
 		{
-			servoangle = 30;
+			motor(motorA) = 0;
+			motor(motorB) = 0;
+		}
+		else if (joy1Btn(6) == 1)
+		{
+			motor(motorA) = -100;
+			motor(motorB) = -100;
 		}
 
+//tubegrabber
 
-
-
-		//motor(motorA) = 100;
-		//motor(motorB) = 100;
+		grabberToggle = toggle(6, grabberToggle);
+		servoangle = grabberToggle ? 150 : 30;
 
 
 		Servos_SetPosition(S1, 2, 1, servoangle);
