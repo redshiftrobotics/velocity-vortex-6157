@@ -62,46 +62,53 @@ int joymotor (int joy)
 bool toggle(int joybtn, bool toggleSwitch)
 {
 	bool btnup = true;
-	if(joybtn == 1 && btnup == true)
-		{
-			//transition down
-			toggleSwitch =! toggleSwitch;
-			btnup = false;
-		}
-		else if(joybtn == 0 && btnup == false)
-		{
-			//transition up
-			btnup = true;
-		}
 
-		return toggleSwitch;
+		if(joy1Btn(joybtn) == 1 && btnup == true)
+			{
+				//transition down
+				toggleSwitch =! toggleSwitch;
+				btnup = false;
+			}
+			else if(joy1Btn(joybtn) == 0 && btnup == false)
+			{
+				//transition up
+				btnup = true;
+			}
+
+			return toggleSwitch;
+
+
+
 }
+
+
 
 
 task main()
 {
-	int SpeedLeft;
-	int SpeedRight;
-	int servoangle;
+	int SpeedLeft = 0;
+	int SpeedRight = 0;
+	int servoangle = 0;
 	bool btnup = true;
 	bool grabberToggle = true;
-	bool sweeperForward = true;
+	bool sweeperToggle = true;
 	while(true)
 	{
+
 
 //driving
 
 		getJoystickSettings(joystick);
 
-		SpeedLeft = joymotor(-joystick.joy1_y2);
-		SpeedRight = joymotor(joystick.joy1_y1);
+		SpeedRight = joymotor(-joystick.joy1_y2);
+		SpeedLeft = joymotor(joystick.joy1_y1);
 
 //sweeper
 
-		sweeperForward = toggle(joy2Btn(8), sweeperForward);
-		motor(motorA) = grabberToggle ? 100 : 0;
-		motor(motorB) = grabberToggle ? 100 : 0;
-		if(joy2Btn(6) == 1)
+		sweeperToggle = toggle(7+1, sweeperToggle);
+		motor(motorA) = sweeperToggle ? 0 : 100;
+		motor(motorB) = sweeperToggle ? 0 : 100;
+		if(joy1Btn(6+1) == 1)
 		{
 			motor(motorA) = -100;
 			motor(motorB) = -100;
@@ -109,8 +116,8 @@ task main()
 
 //tubegrabber
 
-		grabberToggle = toggle(joy1Btn(6), grabberToggle);
-		servoangle = grabberToggle ? 150 : 30;
+		grabberToggle = toggle(1+1, grabberToggle);
+		servoangle = grabberToggle ? 110 : 219;
 
 
 		Servos_SetPosition(S1, 2, 1, servoangle);
