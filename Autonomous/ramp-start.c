@@ -14,7 +14,7 @@
 
 /*
 
-	(C) Copyright 2014 Duncan McKee and Jesse Walling.
+	(C) Copyright 2014 Jesse Walling, Duncan McKee.
 
 	This file is part of the FTC team 6157 application code.
 
@@ -35,10 +35,6 @@
 
 */
 
-
-
-
-
 void move(int time, int D, int E)
 {
 	//A simple all purpose move command
@@ -51,19 +47,6 @@ void move(int time, int D, int E)
 
 task main()
 {
-
-	waitForStart();
-	string location = "ramp";
-	//where it starts
-	if(location == "ramp")
-	{
-		move(2000, 127, 127);
-
-	}else if(location == "floor")
-	{
-
-	}
-
-	// do something
-
+//waitForStart();
+move(3500, 127, 127); //moving the robot off the ramp
 }
