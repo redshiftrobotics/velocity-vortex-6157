@@ -13,7 +13,7 @@
 
 /*
 
-	(C) Copyright 2014 John Doe
+	(C) Copyright 2014 Duncan McKee and Jesse Walling.
 
 	This file is part of the FTC team 6157 application code.
 
@@ -34,24 +34,13 @@
 
 */
 
-/*
 
-	This is an example autonomous program.
 
-	You should copy it to a new file, remove this comment, fix the filename at the top, do motors
-	and sensors setup, replace "John Doe" with your name(s), then write. If you want a second
-	teliop implementation, just copy this file again and make the necessary changes.
-
-	Please make sure to leave the license block above intact. It's important.
-
-*/
-
-#include “HTIRS2-driver.h”
 
 
 void move(int time, int D, int E)
 {
-	//A simple all perpus move command
+	//A shrimple all porpous move command
 	motor[motorD] = D;
 	motor[motorE] = E;
 	wait1Msec(time);
