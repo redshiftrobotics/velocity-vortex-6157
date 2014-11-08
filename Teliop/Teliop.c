@@ -68,6 +68,7 @@ bool toggle(int joybtn, bool toggleSwitch)
 				//transition down
 				toggleSwitch =! toggleSwitch;
 				btnup = false;
+				Sleep(100);
 			}
 			else if(joy1Btn(joybtn) == 0 && btnup == false)
 			{
@@ -105,9 +106,12 @@ task main()
 
 //sweeper
 
-		sweeperToggle = toggle(7+1, sweeperToggle);
-		motor(motorA) = sweeperToggle ? 0 : 100;
-		motor(motorB) = sweeperToggle ? 0 : 100;
+		if(joy1Btn(7+1) == 1)
+		{
+			motor(motorA) = 100;
+			motor(motorB) = 100;
+		}
+
 		if(joy1Btn(6+1) == 1)
 		{
 			motor(motorA) = -100;
