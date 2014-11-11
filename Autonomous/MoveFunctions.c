@@ -41,7 +41,7 @@
 void forward(int rotations)
 {
 	nMotorEncoder[motorD] = 0;          // reset the Motor Encoder of Motor B
-	while(nMotorEncoder[motorD] < (rotations * 360))  // while the Motor Encoder of Motor B has not yet reached 360 counts:
+	while(nMotorEncoder[motorD] < (rotations))  // while the Motor Encoder of Motor B has not yet reached 360 counts:
 	{
   	motor[motorD] = 100;                 // motor B is given a power level of 75
   	motor[motorE] = 100;                 // motor C is given a power level of 75

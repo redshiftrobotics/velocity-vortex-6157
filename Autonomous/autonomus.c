@@ -45,6 +45,7 @@
 task main()
 {
 	int Configuration = CheckPosition();
+	Configuration = 1;
 	if(Configuration == 1)
 	{
 		forward(20);
