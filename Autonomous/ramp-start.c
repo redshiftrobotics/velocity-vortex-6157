@@ -53,7 +53,7 @@ int Configuration = CheckPosition();
 		turnD(4);
 		forward(2);
 		turnE(4);
-		forward(3)
+		forward(3);
 		turnE(4);
 		forward(2);
 	}else if(Configuration == 2)
