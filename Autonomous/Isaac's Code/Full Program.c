@@ -1,6 +1,4 @@
-#pragma config(Sensor, S1, IROne, sensorI2CCustom)
-#pragma config(Sensor, S2, IRTwo, sensorI2CCustom)
-#pragma config(Sensor, S3, Motor, sensorI2CCustom)
+
 
 #include "IR.c"
 #include "Motors.h"
