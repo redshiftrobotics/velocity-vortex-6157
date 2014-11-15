@@ -104,7 +104,6 @@ task main()
 
 		SpeedRight = joymotor(-joystick.joy1_y2);
 		SpeedLeft = joymotor(joystick.joy1_y1);
-
 //sweeper
 
 		if(joy1Btn(7+1) == 1)
@@ -141,6 +140,8 @@ task main()
 	Servos_SetPosition(S1, 2, 1, servoangle);
 	Motors_SetSpeed(S1, 1, 1, SpeedRight);
 	Motors_SetSpeed(S1, 3, 1, SpeedArm);
+	Motors_SetSpeed(S1, 1, 2, SpeedLeft);
+
 
 
 	}
