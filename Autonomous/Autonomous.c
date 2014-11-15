@@ -46,6 +46,7 @@
 
 
 float multiplier = 1.0; //This variable can account for different gear ratios between robots.
+//17 for 1.0 forward on test bot
 
 /*			FORWARD			*/
 
@@ -121,25 +122,50 @@ task main()
 
 	int Configuration = CheckPosition();
 
-	if(Configuration == 3)
+	if(Configuration == 1)
 	{
 		//CONFIGURATION 1
+		turnR(1.5);
+		forward(0.9);
+		turnL(1.5);
+		forward(3.3);
+		turnL(1.4);
 		forward(1.0);
-		backward(1.0);
-		turnR(1.0);
-		turnL(1.0);
+		//backward(1.0);
+		//turnR(1.0);
+		//turnL(1.0);
 
 	}
-	else if(Configuration == 1)
+	else if(Configuration == 3)
 	{
 
 		//CONFIGURATION 3
+		turnR(0.7);
+		forward(2.5);
+		turnL(1.4);
+		int Configuration = CheckPosition();
+		if(Configuration == 1)
+		{
+			turnR(1.5);
+			forward(0.9);
+			turnL(1.5);
+			forward(2.3);
+			turnL(1.4);
+			forward(1.0);
+		}else{
+			forward(2.0);
+			turnR(0.7);
+			forward(2.0);
+		}
 
 	}
 	else
 	{
 		//CONFIGURATION 2
-
+		turnL(0.3);
+		forward(1.5);
+		turnR(1.0);
+		forward(2.0);
 	}
 
 }
