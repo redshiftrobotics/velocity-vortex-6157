@@ -43,13 +43,14 @@
 	<http://www.gnu.org/licenses/>.
 
 */
-float multiplier = 1;
+float multiplier = 1.0;
 
 void forward(float rotations)
 {
-	float StartPosition = Motors_GetPosition(S1, 1, 1);
+	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
+	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
 
-	while(Motors_GetPosition(S1, 1, 1) < StartPosition + rotations * 1440 * multiplier)
+	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier))
 	{
 		Motors_SetSpeed(S1, 1, 1, 50);
 		Motors_SetSpeed(S1, 1, 2, -50);
@@ -60,9 +61,10 @@ void forward(float rotations)
 }
 void turnR(float rotations)
 {
-	float StartPosition = Motors_GetPosition(S1, 1, 1);
+	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
+	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
 
-	while(Motors_GetPosition(S1, 1, 1) < StartPosition + rotations * 1440 * multiplier)
+	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
 	{
 		Motors_SetSpeed(S1, 1, 1, -50);
 		Motors_SetSpeed(S1, 1, 2, -50);
@@ -73,9 +75,10 @@ void turnR(float rotations)
 }
 void turnL(float rotations)
 {
-	float StartPosition = Motors_GetPosition(S1, 1, 1);
+	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
+	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
 
-	while(Motors_GetPosition(S1, 1, 1) < StartPosition + rotations * 1440 * multiplier)
+	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
 	{
 		Motors_SetSpeed(S1, 1, 1, 50);
 		Motors_SetSpeed(S1, 1, 2, 50);
@@ -93,7 +96,11 @@ task main()
 	if(Configuration == 3)
 	{
 		//CONFIGURATION 1
-		turnR(1.4);
+	while(true){
+		Motors_SetSpeed(S1, 1, 1, -40);
+		Motors_SetSpeed(S1, 1, 2, -40);
+
+}
 
 	}
 	else if(Configuration == 1)
