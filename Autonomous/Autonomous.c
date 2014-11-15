@@ -23,7 +23,7 @@
 
 /*
 
-	(C) Copyright 2014 Duncan McKee and Jesse Walling.
+	(C) Copyright 2014 Matthew Kelsey, Duncan McKee and Jesse Walling.
 
 	This file is part of the FTC team 6157 application code.
 
@@ -43,14 +43,18 @@
 	<http://www.gnu.org/licenses/>.
 
 */
-float multiplier = 1.0;
+
+
+float multiplier = 1.0; //This variable can account for different gear ratios between robots.
+
+/*			FORWARD			*/
 
 void forward(float rotations)
 {
 	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
 	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
 
-	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier))
+	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
 	{
 		Motors_SetSpeed(S1, 1, 1, 50);
 		Motors_SetSpeed(S1, 1, 2, -50);
@@ -59,12 +63,15 @@ void forward(float rotations)
 		Motors_SetSpeed(S1, 1, 1, 0);
 		Motors_SetSpeed(S1, 1, 2, 0);
 }
+
+/*			RIGHT			*/
+
 void turnR(float rotations)
 {
 	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
 	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
 
-	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
+	while(Motors_GetPosition(S1, 1, 1) > StartPosition1 - rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
 	{
 		Motors_SetSpeed(S1, 1, 1, -50);
 		Motors_SetSpeed(S1, 1, 2, -50);
@@ -73,12 +80,15 @@ void turnR(float rotations)
 		Motors_SetSpeed(S1, 1, 1, 0);
 		Motors_SetSpeed(S1, 1, 2, 0);
 }
+
+/*			LEFT			*/
+
 void turnL(float rotations)
 {
 	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
 	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
 
-	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
+	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) > StartPosition2 - rotations * 1440 * multiplier)
 	{
 		Motors_SetSpeed(S1, 1, 1, 50);
 		Motors_SetSpeed(S1, 1, 2, 50);
@@ -87,20 +97,34 @@ void turnL(float rotations)
 		Motors_SetSpeed(S1, 1, 1, 0);
 		Motors_SetSpeed(S1, 1, 2, 0);
 }
+
+/*			BACKWARD			*/
+
+void backward(float rotations)
+{
+	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
+	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
+
+	while(Motors_GetPosition(S1, 1, 1) > StartPosition1 - rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) > StartPosition2 - rotations * 1440 * multiplier)
+	{
+		Motors_SetSpeed(S1, 1, 1, -50);
+		Motors_SetSpeed(S1, 1, 2, 50);
+	}
+
+		Motors_SetSpeed(S1, 1, 1, 0);
+		Motors_SetSpeed(S1, 1, 2, 0);
+}
+
 task main()
 {
 
 
-	int Configuration = CheckPosition();
+	int Configuration = 3;//CheckPosition();
 
 	if(Configuration == 3)
 	{
 		//CONFIGURATION 1
-	while(true){
-		Motors_SetSpeed(S1, 1, 1, -40);
-		Motors_SetSpeed(S1, 1, 2, -40);
-
-}
+		forward(0.001);
 
 	}
 	else if(Configuration == 1)
