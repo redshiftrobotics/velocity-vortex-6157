@@ -89,6 +89,7 @@ task main()
 {
 	int SpeedLeft = 0;
 	int SpeedRight = 0;
+	int SpeedArm = 0;
 	int servoangle = 0;
 	bool btnup = true;
 	bool grabberToggle = true;
@@ -124,9 +125,24 @@ task main()
 		servoangle = grabberToggle ? 110 : 219;
 
 
-		Servos_SetPosition(S1, 2, 1, servoangle);
-		Motors_SetSpeed(S1, 1, 1, SpeedRight);
-		Motors_SetSpeed(S1, 1, 2, SpeedLeft);
+//arm
+		if(joy2Btn(6+1) == 1)
+		{
+			SpeedArm = joymotor(joystick.joy2_y1/2);
+
+		}
+		else
+		{
+			SpeedArm = joymotor(joystick.joy2_y1);
+		}
+
+//feed to motors/servos
+
+	Servos_SetPosition(S1, 2, 1, servoangle);
+	Motors_SetSpeed(S1, 1, 1, SpeedRight);
+	Motors_SetSpeed(S1, 3, 1, SpeedArm);
+
+
 	}
 
 }
