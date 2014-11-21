@@ -23,11 +23,10 @@
 
 /*
 
-	(C) Copyright 2014 Matthew Kelsey, Duncan McKee and Jesse Walling.
-
+	(C) Copyright 2014 Matthew Kelsey, Duncan McKee, Jesse Walling and Duncan Clark
 	This file is part of the FTC team 6157 application code.
 
-	FTC team 6157 application code is free software: you can
+	FTC team 6157 application code is free software: you c	an
 	redistribute it and/or modify it under the terms of the GNU
 	General Public License as published by the Free Software
 	Foundation, either version 2 of the License, or (at your
@@ -45,7 +44,7 @@
 */
 
 
-float multiplier = 1.0; //This variable can account for different gear ratios between robots.
+float multiplier = 2.0; //This variable can account for different gear ratios between robots.
 //17 for 1.0 forward on test bot
 
 /*			FORWARD			*/
@@ -120,43 +119,45 @@ task main()
 {
 
 
-	int Configuration = CheckPosition();
+	int Configuration = 1;//CheckPosition();
 
 	if(Configuration == 1)
 	{
 		//CONFIGURATION 1
-		turnR(1.5);
-		forward(0.9);
-		turnL(1.5);
-		forward(3.3);
-		turnL(1.4);
-		forward(1.0);
-		//backward(1.0);
-		//turnR(1.0);
-		//turnL(1.0);
-
+	turnL(0.1);
+	turnR(0.1);
+		turnL(0.1);
+	turnR(0.1);
+		turnL(0.1);
+	turnR(0.1);
+		turnL(0.1);
+	turnR(0.1);
 	}
 	else if(Configuration == 3)
 	{
 
 		//CONFIGURATION 3
-		turnR(0.7);
-		forward(2.5);
-		turnL(1.4);
-		int Configuration = CheckPosition();
-		if(Configuration == 1)
-		{
-			turnR(1.5);
-			forward(0.9);
-			turnL(1.5);
-			forward(2.3);
-			turnL(1.4);
-			forward(1.0);
-		}else{
-			forward(2.0);
-			turnR(0.7);
-			forward(2.0);
-		}
+		//turnR(0.7);
+		//forward(2.5);
+		//turnL(1.4);
+		//int Configuration = CheckPosition();
+		//if(Configuration == 1)
+		//{
+		//	turnR(1.5);
+		//	forward(0.9);
+		//	turnL(1.5);
+		//	forward(2.3);
+		//	turnL(1.4);
+		//	forward(1.0);
+		//}else{
+		//	forward(2.0);
+		//	turnR(0.7);
+		//	forward(2.0);
+		//}
+	turnR(1.5);
+	forward(0.9);
+	turnL(1.5);
+	forward(4.0);
 
 	}
 	else
