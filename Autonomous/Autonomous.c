@@ -66,38 +66,27 @@ void forward(float rotations)
 
 /*			RIGHT			*/
 
-void turnR(float rotations)
+void turnR(float time)
 {
-	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
-	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
+	Motors_SetSpeed(S1, 1, 1, 100);
+	Motors_SetSpeed(S1, 1, 2, 100);
+	Sleep(time*1000);
+	Motors_SetSpeed(S1, 1, 1, 0);
+	Motors_SetSpeed(S1, 1, 2, 0);
 
-	while(Motors_GetPosition(S1, 1, 1) > StartPosition1 - rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
-	{
-		Motors_SetSpeed(S1, 1, 1, -100);
-		Motors_SetSpeed(S1, 1, 2, -100);
-	}
-
-		Motors_SetSpeed(S1, 1, 1, 0);
-		Motors_SetSpeed(S1, 1, 2, 0);
 }
 
 /*			LEFT			*/
 
-void turnL(float rotations)
+void turnL(float time)
 {
-	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
-	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
+	Motors_SetSpeed(S1, 1, 1, -100);
+	Motors_SetSpeed(S1, 1, 2, -100);
+	Sleep(time*1000);
+	Motors_SetSpeed(S1, 1, 1, 0);
+	Motors_SetSpeed(S1, 1, 2, 0);
 
-	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) > StartPosition2 - rotations * 1440 * multiplier)
-	{
-		Motors_SetSpeed(S1, 1, 1, 100);
-		Motors_SetSpeed(S1, 1, 2, 100);
-	}
-
-		Motors_SetSpeed(S1, 1, 1, 0);
-		Motors_SetSpeed(S1, 1, 2, 0);
 }
-
 /*			BACKWARD			*/
 
 void backward(float rotations)
@@ -124,14 +113,8 @@ task main()
 	if(Configuration == 1)
 	{
 		//CONFIGURATION 1
-	turnL(0.1);
-	turnR(0.1);
-		turnL(0.1);
-	turnR(0.1);
-		turnL(0.1);
-	turnR(0.1);
-		turnL(0.1);
-	turnR(0.1);
+		turnL(1);
+		forward(0.6);
 	}
 	else if(Configuration == 3)
 	{

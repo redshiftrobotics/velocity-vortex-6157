@@ -23,11 +23,10 @@
 
 /*
 
-	(C) Copyright 2014 Matthew Kelsey, Duncan McKee and Jesse Walling.
-
+	(C) Copyright 2014 Matthew Kelsey, Duncan McKee, Jesse Walling and Duncan Clark
 	This file is part of the FTC team 6157 application code.
 
-	FTC team 6157 application code is free software: you can
+	FTC team 6157 application code is free software: you c	an
 	redistribute it and/or modify it under the terms of the GNU
 	General Public License as published by the Free Software
 	Foundation, either version 2 of the License, or (at your
@@ -45,7 +44,7 @@
 */
 
 
-float multiplier = 1.0; //This variable can account for different gear ratios between robots.
+float multiplier = 2.0; //This variable can account for different gear ratios between robots.
 //17 for 1.0 forward on test bot
 
 /*			FORWARD			*/
@@ -67,89 +66,27 @@ void forward(float rotations)
 
 /*			RIGHT			*/
 
-void turnR(float rotations)
+void turnR(float time)
 {
-	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
-	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
+	Motors_SetSpeed(S1, 1, 1, 100);
+	Motors_SetSpeed(S1, 1, 2, 100);
+	Sleep(time*1000);
+	Motors_SetSpeed(S1, 1, 1, 0);
+	Motors_SetSpeed(S1, 1, 2, 0);
 
-	while(Motors_GetPosition(S1, 1, 1) > StartPosition1 - rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
-	{
-		Motors_SetSpeed(S1, 1, 1, -100);
-		Motors_SetSpeed(S1, 1, 2, -100);
-	}
-
-		Motors_SetSpeed(S1, 1, 1, 0);
-		Motors_SetSpeed(S1, 1, 2, 0);
 }
 
 /*			LEFT			*/
 
-void turnL(float rotations)
+void turnL(float time)
 {
-	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
-	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
+	Motors_SetSpeed(S1, 1, 1, -100);
+	Motors_SetSpeed(S1, 1, 2, -100);
+	Sleep(time*1000);
+	Motors_SetSpeed(S1, 1, 1, 0);
+	Motors_SetSpeed(S1, 1, 2, 0);
 
-	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) > StartPosition2 - rotations * 1440 * multiplier)
-	{
-		Motors_SetSpeed(S1, 1, 1, 100);
-		Motors_SetSpeed(S1, 1, 2, 100);
-	}
-
-		Motors_SetSpeed(S1, 1, 1, 0);
-		Motors_SetSpeed(S1, 1, 2, 0);
 }
-
-void turnL2(float rotations)
-{
-	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
-	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
-
-	bool motor1Done = false;
-	bool motor2Done = false;
-	while(!motor1Done || !motor2Done)
-	{
-		// robot left
-		if(Motors_GetPosition(S1, 1, 2) < (StartPosition2 + rotations * 1440))
-		{
-			Motors_SetSpeed(S1, 1, 1, 100);
-		}
-		else
-		{
-			motor1Done = true;
-			Motors_SetSpeed(S1, 1, 1, 0);
-		}
-
-		// robot right
-		if(Motors_GetPosition(S1, 1, 1) < (StartPosition1 + 10000))//* .1 * 1440))
-		{
-			Motors_SetSpeed(S1, 1, 2, 100);
-		}
-		else
-		{
-			motor2Done = true;
-			Motors_SetSpeed(S1, 1, 2, 0);
-		}
-
-	}
-}
-
-void turnTest(int rotations)
-{
-	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
-	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
-
-	while(Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440)
-	{
-		eraseDisplay();
-		int value = Motors_GetPosition(S1, 1, 2);
-    nxtDisplayBigStringAt(2, 15, "%i", value);
-
-		Motors_SetSpeed(S1, 1, 1, 100);
-	}
-
-		Motors_SetSpeed(S1, 1, 1, 0);
-}
-
 /*			BACKWARD			*/
 
 void backward(float rotations)
@@ -169,42 +106,12 @@ void backward(float rotations)
 
 task main()
 {
-	turnL2(.1);
-//turnTest(100);
 
-	return;
-
-	waitForStart();
-	forward(3.3);
-	turnL(1.5);
+	forward(5.3);
+	turnL(0.2);
 	forward(1.0);
-	turnL(1.5);
-	forward(3.9);
-	turnR(1.5);
+	turnL(0.4);
 	forward(1.0);
-	turnR(0.5);
 
-	int Configuration = CheckPosition();
-
-	if(Configuration == 1)
-	{
-		//CONFIGURATION 1
-
-
-
-
-	}
-	else if(Configuration == 3)
-	{
-
-		//CONFIGURATION 3
-
-
-	}
-	else
-	{
-		//CONFIGURATION 2
-
-	}
 
 }
