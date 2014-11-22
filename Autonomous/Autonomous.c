@@ -108,48 +108,32 @@ task main()
 {
 
 
-	int Configuration = 1;//CheckPosition();
+	int Configuration = CheckPosition();
 
 	if(Configuration == 1)
 	{
 		//CONFIGURATION 1
-		turnL(1);
-		forward(0.6);
+		turnR(1.1);
+		backward(1.3);
+		turnL(1.12);
+		backward(5.5);
 	}
 	else if(Configuration == 3)
 	{
-
-		//CONFIGURATION 3
-		//turnR(0.7);
-		//forward(2.5);
-		//turnL(1.4);
-		//int Configuration = CheckPosition();
-		//if(Configuration == 1)
-		//{
-		//	turnR(1.5);
-		//	forward(0.9);
-		//	turnL(1.5);
-		//	forward(2.3);
-		//	turnL(1.4);
-		//	forward(1.0);
-		//}else{
-		//	forward(2.0);
-		//	turnR(0.7);
-		//	forward(2.0);
-		//}
-	turnR(1.5);
-	forward(0.9);
-	turnL(1.5);
-	forward(4.0);
-
+		turnR(1.0);
+		backward(1.3);
+		turnL(1.0);
+		backward(3.5);
+		turnL(1.0);
+		backward(1.0);
 	}
 	else
 	{
 		//CONFIGURATION 2
-		turnL(0.3);
-		forward(1.5);
-		turnR(1.0);
-		forward(2.0);
+		turnR(0.3);
+		backward(1.5);
+		turnL(1.0);
+		backward(2.0);
 	}
 
 }
