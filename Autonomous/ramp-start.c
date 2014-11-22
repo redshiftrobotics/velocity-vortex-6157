@@ -107,7 +107,7 @@ void backward(float rotations)
 
 task main()
 {
-	//waitForStart();
+	waitForStart();
 
 	Servos_SetPosition(S1, 2, 1, 110);
 
