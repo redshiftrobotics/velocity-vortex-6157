@@ -17,6 +17,7 @@
 
 #include "JoystickDriver.c"
 #include "../Libraries/Motors.h"
+#include "../Libraries/Servos.h"
 #include "Isaac's Code/Full Program.c"
 
 // example.c
@@ -106,6 +107,9 @@ void backward(float rotations)
 
 task main()
 {
+	//waitForStart();
+
+	Servos_SetPosition(S1, 2, 1, 110);
 
 	forward(5.3);
 	turnL(0.2);
