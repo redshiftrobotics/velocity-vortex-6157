@@ -109,14 +109,16 @@ task main()
 {
 
 
-	//waitForStart();
+	waitForStart();
+
 
 	Servos_SetPosition(S1, 2, 1, 110);
 
+	backward(0.8);
 
 	int Configuration = CheckPosition();
 
-	if(Configuration == 1)
+	if(Configuration == 3)
 	{
 		//CONFIGURATION 1
 		turnR(1.1);
@@ -124,7 +126,7 @@ task main()
 		turnL(1.12);
 		backward(5.5);
 	}
-	else if(Configuration == 3)
+	else if(Configuration == 1)
 	{
 		turnR(1.0);
 		backward(1.3);

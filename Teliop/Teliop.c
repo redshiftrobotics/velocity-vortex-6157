@@ -67,7 +67,7 @@ bool toggle(int joybtn, bool toggleSwitch)
 				//transition down
 				toggleSwitch =! toggleSwitch;
 				btnup = false;
-				Sleep(100);
+				Sleep(150);
 			}
 			else if(joy1Btn(joybtn) == 0 && btnup == false)
 			{
