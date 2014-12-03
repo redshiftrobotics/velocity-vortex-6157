@@ -84,6 +84,7 @@ bool toggle(int joybtn, bool toggleSwitch)
 
 
 
+
 task main()
 {
 	int SpeedLeft = 0;
@@ -107,7 +108,12 @@ task main()
 		SpeedLeft = joymotor(joystick.joy1_y1);
 //sweeper
 
-		if(joy1Btn(7+1) == 1)
+		sweeperToggle = toggle(7+1, sweeperToggle);
+		motor[motorA] = sweeperToggle ? 0 : 100;
+		motor[motorB] = sweeperToggle ? 0 : 100;
+
+
+		/*if(joy1Btn(7+1) == 1)
 		{
 			motor(motorA) = 100;
 			motor(motorB) = 100;
@@ -118,7 +124,7 @@ task main()
 			motor(motorA) = -100;
 			motor(motorB) = -100;
 		}
-
+*/
 //tubegrabber
 
 		grabberToggle = toggle(1+1, grabberToggle);
@@ -138,14 +144,24 @@ task main()
 
 //DUMPER
 
-		//dumperToggle = toggle(2+1, dumperToggle);
-		//servo2angle = dumperToggle ? 110 : 219;
+		if(joy2Btn(1+1) == 1)
+		{
+			servo2angle = 256;
+		}
+		else if(joy2Btn(2+1) == 1)
+		{
+			servo2angle = 0;
+		}
+		else
+		{
+			servo2angle = 126;
+		}
 
 
 //feed to motors/servos
 
 	Servos_SetPosition(S1, 2, 1, servoangle);
-	Servos_SetPosition(S1, 2, 1, servoangle);
+	Servos_SetPosition(S1, 2, 2, servo2angle);
 	Motors_SetSpeed(S1, 1, 1, SpeedRight);
 	Motors_SetSpeed(S1, 3, 1, SpeedArm);
 	Motors_SetSpeed(S1, 1, 2, SpeedLeft);
