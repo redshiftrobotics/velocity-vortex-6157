@@ -144,11 +144,11 @@ task main()
 
 //DUMPER
 		// b
-		if(joy2Btn(1+1) == 1)
+		if(joy2Btn(1) == 1)
 		{
 			servo2angle = 200;
 		}
-		else if(joy2Btn(2+1) == 1)
+		else if(joy2Btn(1+1) == 1)
 		{
 			servo2angle = 50;
 		}
