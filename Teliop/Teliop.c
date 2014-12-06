@@ -146,11 +146,11 @@ task main()
 
 
 //feed to motors/servos
-if(-10 < joystick.joy1_y1 < 10)
+if(-5 < joystick.joy1_y1 < 5)
 {
 	SpeedLeft = 0;
 }
-if(-10 < joystick.joy1_y2 < 10)
+if(-5 < joystick.joy1_y2 < 5)
 {
 	SpeedRight = 0;
 }
