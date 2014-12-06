@@ -143,14 +143,14 @@ task main()
 		}
 
 //DUMPER
-
+		// b
 		if(joy2Btn(1+1) == 1)
 		{
-			servo2angle = 256;
+			servo2angle = 200;
 		}
 		else if(joy2Btn(2+1) == 1)
 		{
-			servo2angle = 0;
+			servo2angle = 50;
 		}
 		else
 		{
@@ -162,9 +162,9 @@ task main()
 
 	Servos_SetPosition(S1, 2, 1, servoangle);
 	Servos_SetPosition(S1, 2, 2, servo2angle);
-	Motors_SetSpeed(S1, 1, 1, SpeedRight);
+	Motors_SetSpeed(S1, 1, 1, -SpeedLeft);
 	Motors_SetSpeed(S1, 3, 1, SpeedArm);
-	Motors_SetSpeed(S1, 1, 2, SpeedLeft);
+	Motors_SetSpeed(S1, 1, 2, -SpeedRight);
 
 
 
