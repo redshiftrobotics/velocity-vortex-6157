@@ -135,7 +135,7 @@ task main()
 		{
 			servo2angle = 200;
 		}
-		else if(joy2Btn(1+1) == 1)
+		else if(joy2Btn(2) == 1)
 		{
 			servo2angle = 50;
 		}
@@ -146,14 +146,14 @@ task main()
 
 
 //feed to motors/servos
-if(-5 < joystick.joy1_y1 < 5)
+/*if(-5 < joystick.joy1_y1 < 5)
 {
 	SpeedLeft = 0;
 }
 if(-5 < joystick.joy1_y2 < 5)
 {
 	SpeedRight = 0;
-}
+}*/
 	Servos_SetPosition(S1, 2, 1, servoangle);
 	Servos_SetPosition(S1, 2, 2, servo2angle);
 	Motors_SetSpeed(S1, 1, 1, -SpeedLeft);
