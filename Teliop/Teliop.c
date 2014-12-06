@@ -112,19 +112,6 @@ task main()
 		motor[motorA] = sweeperToggle ? 0 : 100;
 		motor[motorB] = sweeperToggle ? 0 : 100;
 
-
-		/*if(joy1Btn(7+1) == 1)
-		{
-			motor(motorA) = 100;
-			motor(motorB) = 100;
-		}
-
-		if(joy1Btn(6+1) == 1)
-		{
-			motor(motorA) = -100;
-			motor(motorB) = -100;
-		}
-*/
 //tubegrabber
 
 		grabberToggle = toggle(1+1, grabberToggle);
@@ -159,7 +146,14 @@ task main()
 
 
 //feed to motors/servos
-
+if(-5 < joystick.joy1_y1 < 5)
+{
+	SpeedLeft = 0;
+}
+if(-5< joystick.joy1_y2 < 5)
+{
+	SpeedRight = 0;
+}
 	Servos_SetPosition(S1, 2, 1, servoangle);
 	Servos_SetPosition(S1, 2, 2, servo2angle);
 	Motors_SetSpeed(S1, 1, 1, -SpeedLeft);
