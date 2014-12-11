@@ -66,18 +66,12 @@ void backward(float rotations)
 }
 
 /* GRABBER */
-
-
-void Up()
+void grabberUp()
 {
-
-	writeDebugStream("Up");
-
+	Servos_SetPosition(S1, 2, 1, 110);
 }
 
-void Down()
+void grabberDown()
 {
-
-	writeDebugStream("Down");
-
+	Servos_SetPosition(S1, 2, 1, 219);
 }
