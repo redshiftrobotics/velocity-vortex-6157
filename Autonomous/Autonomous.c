@@ -20,36 +20,15 @@
 // #include "../Libraries/Servos.h"
 #include "movement.c"
 
-// example.c
-
-/*
-
-	(C) Copyright 2014 Matthew Kelsey, Duncan McKee, Jesse Walling and Duncan Clark
-	This file is part of the FTC team 6157 application code.
-
-	FTC team 6157 application code is free software: you c	an
-	redistribute it and/or modify it under the terms of the GNU
-	General Public License as published by the Free Software
-	Foundation, either version 2 of the License, or (at your
-	option) any later version.
-
-	FTC team 6157 application code is distributed in the hope that
-	it will be useful, but WITHOUT ANY WARRANTY; without even the
-	implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-	PURPOSE.  See the GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public
-	License along with FTC team 6157 application code. If not, see
-	<http://www.gnu.org/licenses/>.
-
-*/
 
 //17 for 1.0 forward on test bot
 
 
-int lowbat = 30; //Change to 30 if battery on IR Beacons is low.
+int lowbat = 0; //Change to 30 if battery on IR Beacons is low.
 
 /*			FORWARD			*/
+
+/* OLD
 
 int CheckPosition()
 {
@@ -72,6 +51,30 @@ int CheckPosition()
 		return 1;
 	}
 }
+*/
+
+int CheckPosition()
+{
+	IR_Update();
+
+	if(IR_TwoValue.C + IR_OneValue.C > 100 - lowbat)
+	{
+		writeDebugStreamLine("Running Config 3");
+		return 3;
+
+	}
+	else if(IR_OneValue.C + IR_TwoValue.C > 100 - lowbat)
+	{
+		writeDebugStreamLine("Running Config 2");
+		return 2;
+	}
+	else
+	{
+		writeDebugStreamLine("Running Config 1");
+		return 1;
+	}
+}
+
 /*
 void forward(float rotations)
 {

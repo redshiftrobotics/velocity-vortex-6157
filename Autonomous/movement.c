@@ -67,10 +67,6 @@ void backward(float rotations)
 
 /* GRABBER */
 
-struct grabber5
-{
-	int motorNumber;
-};
 
 void Up()
 {
@@ -83,14 +79,5 @@ void Down()
 {
 
 	writeDebugStream("Down");
-
-}
-
-
-task main()
-{
-
-grabber.Up();
-grabber.Down();
 
 }
