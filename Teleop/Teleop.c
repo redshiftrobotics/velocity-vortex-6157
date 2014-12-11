@@ -108,10 +108,17 @@ task main()
 		SpeedLeft = joymotor(joystick.joy1_y1);
 //sweeper
 
-		sweeperToggle = toggle(7+1, sweeperToggle);
-		motor[motorA] = sweeperToggle ? 0 : 100;
-		motor[motorB] = sweeperToggle ? 0 : 100;
-
+		//sweeperToggle = toggle(7+1, sweeperToggle);
+		if(joy2Btn(7+1) == 1)
+		{
+			motor[motorA] = 100;
+			motor[motorB] = 100;
+		}
+		else
+		{
+			motor[motorA] = 0;
+			motor[motorB] = 0;
+		}
 //tubegrabber
 
 		grabberToggle = toggle(1+1, grabberToggle);
