@@ -35,15 +35,23 @@
 
 task main()
 {
-	waitForStart();
+	//waitForStart();
 
-	Servos_SetPosition(S1, 2, 1, 110);
-
-	forward(5.3);
+	grabberUp();
+	forward(2.0);
 	turnL(0.2);
-	forward(1.0);
-	turnL(0.4);
-	forward(1.0);
-
+	forward(4.6);
+	turnR(0.25);
+	forward(3.8);
+	grabberDown();
+	grabberDown();
+	grabberDown();
+	grabberDown();
+	wait1Msec(100);
+	turnR(2.45);
+	forward(4.7);
+	forward(4.45);
+	turnL(1.3);
+	forward(1.8);
 
 }
