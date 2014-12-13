@@ -42,16 +42,15 @@ task main()
 	turnL(0.2);
 	forward(4.6);
 	turnR(0.25);
-	forward(3.8);
-	grabberDown();
-	grabberDown();
+	forward(3.85);
 	grabberDown();
 	grabberDown();
 	wait1Msec(100);
 	turnR(2.45);
 	forward(4.7);
-	forward(4.45);
-	turnL(1.3);
-	forward(1.8);
+	forward(4.8);
+	turnL(1.5);
+	forward(1.3);
+
 
 }

@@ -85,12 +85,12 @@ int servo2angle = 126;
 
 void dumperForward()
 {
-	wait1Msec(10);
+	//wait1Msec(10);
 	servo2angle = 200;
 	Servos_SetPosition(S1, 2, 2, servo2angle);
-	wait1Msec(1);
-	servo2angle = 126;
-	Servos_SetPosition(S1, 2, 2, servo2angle);
+	//wait1Msec(1000);
+	//servo2angle = 126;
+	//Servos_SetPosition(S1, 2, 2, servo2angle);
 }
 
 void dumperBackward()
@@ -160,11 +160,11 @@ task main()
 
 		if(joy2Btn(1) == 1)
 		{
-			dumperForward();
+			servo2angle = 200;
 		}
 		else if(joy2Btn(2) == 1)
 		{
-			dumperBackward();
+			servo2angle = 50;
 		}
 		else
 		{
@@ -182,7 +182,7 @@ if(-5 < joystick.joy1_y2 < 5)
 	SpeedRight = 0;
 }*/
 	Servos_SetPosition(S1, 2, 1, servoangle);
-	//Servos_SetPosition(S1, 2, 2, servo2angle);
+	  Servos_SetPosition(S1, 2, 2, servo2angle);
 	Motors_SetSpeed(S1, 1, 1, -SpeedLeft);
 	Motors_SetSpeed(S1, 3, 1, SpeedArm);
 	Motors_SetSpeed(S1, 1, 2, -SpeedRight);
