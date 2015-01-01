@@ -68,10 +68,10 @@ void backward(float rotations)
 /* GRABBER */
 void grabberUp()
 {
-	Servos_SetPosition(S1, 2, 1, 110);
+	Servos_SetPosition(S1, 2, 1, 95);
 }
 
 void grabberDown()
 {
-	Servos_SetPosition(S1, 2, 1, 219);
+	Servos_SetPosition(S1, 2, 1, 200);
 }

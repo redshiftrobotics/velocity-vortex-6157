@@ -35,7 +35,7 @@
 
 task main()
 {
-	//waitForStart();
+	waitForStart();
 
 	grabberUp();
 	forward(2.0);
@@ -43,7 +43,7 @@ task main()
 	forward(4.6);
 	turnR(0.25);
 	forward(3.85);
-	grabberDown();
+	/*grabberDown();
 	grabberDown();
 	wait1Msec(100);
 	turnR(2.45);
@@ -51,6 +51,6 @@ task main()
 	forward(4.8);
 	turnL(1.5);
 	forward(1.3);
-
+*/
 
 }

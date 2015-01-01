@@ -136,7 +136,7 @@ task main()
 {
 
 
-	//waitForStart();
+	waitForStart();
 
 
 	Servos_SetPosition(S1, 2, 1, 110);
@@ -152,6 +152,7 @@ task main()
 		forward(1.6);
 		turnR(1.12);
 		forward(5.5);
+		turnL(1.6);
 
 	}
 	else if(Configuration == 1)
@@ -163,6 +164,7 @@ task main()
 		forward(3.0);
 		turnR(1.0);
 		forward(2.0);
+		turnL(1.6);
 
 	}
 	if(Configuration == 2)
@@ -174,6 +176,7 @@ task main()
 		forward(3.0);
 		turnL(0.7);
 		forward(3.0);
+		turnL(1.6);
 
 
 	}

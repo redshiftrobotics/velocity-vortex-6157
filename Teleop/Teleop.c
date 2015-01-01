@@ -81,7 +81,7 @@ bool toggle(int joybtn, bool toggleSwitch)
 
 }
 
-int servo2angle = 126;
+int servo2angle = 1;
 
 void dumperForward()
 {
@@ -133,6 +133,11 @@ task main()
 			motor[motorA] = 100;
 			motor[motorB] = 100;
 		}
+		else if(joy2Btn(6+1) == 1)
+		{
+			motor[motorA] = -100;
+			motor[motorB] = -100;
+		}
 		else
 		{
 			motor[motorA] = 0;
@@ -141,7 +146,7 @@ task main()
 //tubegrabber
 
 		grabberToggle = toggle(1+1, grabberToggle);
-		servoangle = grabberToggle ? 110 : 219;
+		servoangle = grabberToggle ? 95 : 207;
 
 
 //arm
@@ -156,8 +161,23 @@ task main()
 		}
 
 //DUMPER
-		// b
 
+		if(joy2Btn(1) == 1)
+		{
+			servo2angle = 1;
+		}
+		else if(joy2Btn(2) == 1)
+		{
+			servo2angle = 70;
+		}
+		else if(joy2Btn(3) == 1)
+		{
+			servo2angle = 120;
+		}
+		else{}
+
+
+		/* OLD DUMPPER
 		if(joy2Btn(1) == 1)
 		{
 			servo2angle = 200;
@@ -170,7 +190,7 @@ task main()
 		{
 			servo2angle = 126;
 		}
-
+*/
 
 //feed to motors/servos
 /*if(-5 < joystick.joy1_y1 < 5)
