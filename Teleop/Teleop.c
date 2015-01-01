@@ -33,6 +33,8 @@ License along with FTC team 6157 application code. If not, see
 
 #include "JoystickDriver.c"
 
+//----------------------------------------------------------------checkback (constrain)
+
 int constrain(int x, int min, int max)
 {
 	if (x > max)
@@ -47,7 +49,7 @@ int joymotor (int joy)
 	int motor;
 	if(joy > 7 || joy < -7)
 	{
-		motor = joy * 100 / 127;
+		motor = joy * 100 / 127; //-----------------------------------checkback (the equation? check math)
 	}
 	else
 	{
@@ -190,19 +192,12 @@ task main()
 		{
 			servo2angle = 126;
 		}
-*/
+		*/
 
-//feed to motors/servos
-/*if(-5 < joystick.joy1_y1 < 5)
-{
-	SpeedLeft = 0;
-}
-if(-5 < joystick.joy1_y2 < 5)
-{
-	SpeedRight = 0;
-}*/
+//removed threshold already implemented in joymotor()
+
 	Servos_SetPosition(S1, 2, 1, servoangle);
-	  Servos_SetPosition(S1, 2, 2, servo2angle);
+	Servos_SetPosition(S1, 2, 2, servo2angle);
 	Motors_SetSpeed(S1, 1, 1, -SpeedLeft);
 	Motors_SetSpeed(S1, 3, 1, SpeedArm);
 	Motors_SetSpeed(S1, 1, 2, -SpeedRight);
