@@ -18,11 +18,9 @@ FTC team 6157 application code is distributed in the hope that
 it will be useful, but WITHOUT ANY WARRANTY; without even the
 implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 PURPOSE.  See the GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public
 License along with FTC team 6157 application code. If not, see
 <http://www.gnu.org/licenses/>.
-
 */
 #pragma config(Sensor, S1, , sensorI2CCustom)
 #pragma config(Motor,  motorA,          spinner1,      tmotorNXT, PIDControl, encoder)
@@ -33,7 +31,31 @@ License along with FTC team 6157 application code. If not, see
 
 #include "JoystickDriver.c"
 
-//----------------------------------------------------------------checkback (constrain)
+/////////////////////////////////////////////////////////////////////////
+/// BUG NOTES -- Everything you need to know about our programs bugs. ///
+/////////////////////////////////////////////////////////////////////////
+/*
+
+Many interesting developments were made in the way of discovering the cause of the "infinity bug."
+
+Unfortunately the infinity bug was not reproducable after a good 45 minutes of solid robot driving with thourough movement
+and vigourous routines.
+
+First was that the constrain and joymotor functions were not infact written by 2856 and therefore are falible. (Not that
+2856 is infallible but deffinitely less so than our team). I did however read through the functions and they appear to be
+completely functional. I also tried removing the constrain function (after consulting AJ to be sure it wouldn't burn out
+the motors). There was apparent difference, the small delay between controller input and robot action remained. I left the
+constrain function in as it was causing no problems and is a good safety measure to prevent against motor strain. Joymotor
+also has a weird equation that is noted below. It appears to be attempting to act somewhat like a constrain function as well
+when removed, a joystick value of 128 or -128 (only works on some joysticks) will cause the motor(s) being controlled by that
+joystick to stop moving entirely until you move the joystick back to a value under 128 or above -128.
+
+I don't think either of these complications are related to the infinity bug directly but they could be caused by the same
+thing as the infinity bug.
+
+In retrospect no real progress was made today.
+
+*/
 
 int constrain(int x, int min, int max)
 {
@@ -56,6 +78,7 @@ int joymotor (int joy)
 		return 0;
 	}
 	return constrain(motor,-100,100);
+
 }
 
 
@@ -121,12 +144,6 @@ task main()
 	{
 
 
-//driving
-
-		getJoystickSettings(joystick);
-
-		SpeedRight = joymotor(-joystick.joy1_y2);
-		SpeedLeft = joymotor(joystick.joy1_y1);
 //sweeper
 
 		//sweeperToggle = toggle(7+1, sweeperToggle);
@@ -196,11 +213,19 @@ task main()
 
 //removed threshold already implemented in joymotor()
 
+	//driving
+
+	getJoystickSettings(joystick);
+
+	SpeedRight = joymotor(joystick.joy1_y2);
+	SpeedLeft = joymotor(joystick.joy1_y1);
+
+
 	Servos_SetPosition(S1, 2, 1, servoangle);
 	Servos_SetPosition(S1, 2, 2, servo2angle);
 	Motors_SetSpeed(S1, 1, 1, -SpeedLeft);
 	Motors_SetSpeed(S1, 3, 1, SpeedArm);
-	Motors_SetSpeed(S1, 1, 2, -SpeedRight);
+	Motors_SetSpeed(S1, 1, 2, SpeedRight);
 
 
 
