@@ -4,7 +4,7 @@
 
 /*
 
-(C) Copyright 2014 Samin Zach and Matthew Kelsey
+(C) Copyright 014 Samin Zach and Matthew Kelsey
 
 This file is part of the FTC team 6157 application code.
 
@@ -69,14 +69,15 @@ int constrain(int x, int min, int max)
 int joymotor (int joy)
 {
 	int motor;
-	if(joy > 7 || joy < -7)
+	if(joy > 20 || joy < -20)
 	{
-		motor = joy * 100 / 127; //-----------------------------------checkback (the equation? check math)
+		motor = joy * 100 / 127;
 	}
 	else
 	{
 		return 0;
 	}
+
 	return constrain(motor,-100,100);
 
 }
@@ -101,9 +102,6 @@ bool toggle(int joybtn, bool toggleSwitch)
 			}
 
 			return toggleSwitch;
-
-
-
 }
 
 int servo2angle = 1;
@@ -142,6 +140,18 @@ task main()
 	bool dumperToggle = true;
 	while(true)
 	{
+
+
+
+	//driving
+
+	getJoystickSettings(joystick);
+
+	SpeedRight = joymotor(joystick.joy1_y2);
+	SpeedLeft = joymotor(joystick.joy1_y1);
+
+
+
 
 
 //sweeper
@@ -213,14 +223,11 @@ task main()
 
 //removed threshold already implemented in joymotor()
 
-	//driving
+	//writeDebugStream("Right: %i | ", SpeedRight);
+	//writeDebugStream("Left: %i", SpeedLeft);
+	//writeDebugStreamLine("");
 
-	getJoystickSettings(joystick);
-
-	SpeedRight = joymotor(joystick.joy1_y2);
-	SpeedLeft = joymotor(joystick.joy1_y1);
-
-
+	writeDebugStreamLine("%i | %i", Motors_GetPosition(S1, 1, 2), Motors_GetPosition(S1, 1, 1));
 	Servos_SetPosition(S1, 2, 1, servoangle);
 	Servos_SetPosition(S1, 2, 2, servo2angle);
 	Motors_SetSpeed(S1, 1, 1, -SpeedLeft);

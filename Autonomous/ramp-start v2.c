@@ -8,7 +8,6 @@
 // example.c
 
 /*
-
 	(C) Copyright 2014 Matthew Kelsey, Duncan McKee, Jesse Walling and Duncan Clark
 	This file is part of the FTC team 6157 application code.
 
@@ -35,22 +34,25 @@
 
 task main()
 {
-	waitForStart();
-
+	//waitForStart();
+	Servos_SetPosition(S1, 2, 2, 50);
 	grabberUp();
-	forward(2.0);
-	turnL(0.2);
-	forward(4.6);
-	turnR(0.25);
-	forward(3.85);
-	/*grabberDown();
+	//forward(4.5);
+	forward(1.1);
+	/*turnL(0.4);
+	forward(3.8);
 	grabberDown();
 	wait1Msec(100);
-	turnR(2.45);
-	forward(4.7);
-	forward(4.8);
-	turnL(1.5);
-	forward(1.3);
+	turnR(1.6);
+	forward(1.9);
+	turnR(0.7);
+	forward(5.9);
+	turnL(0.6);
+	forward(0.7);
+	turnL(0.6);
+	forward(0.4);
+	turnL(0.3);
+	forward(1.1);
 */
 
 }

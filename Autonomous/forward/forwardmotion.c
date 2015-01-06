@@ -1,5 +1,5 @@
-#include "../Libraries/Motors.h"
-#include "../Libraries/Servos.h"
+#include "../../Libraries/Motors.h"
+#include "../../Libraries/Servos.h"
 
 
 float multiplier = 1.0; //This variable can account for different gear ratios between robots.
@@ -13,8 +13,8 @@ void forward(float rotations)
 {
 	int StartPosition1 = Motors_GetPosition(S1, 1, 1);
 	int StartPosition2 = Motors_GetPosition(S1, 1, 2);
-//Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier)&&
-	while(Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
+
+	while(Motors_GetPosition(S1, 1, 1) < StartPosition1 + rotations * 1440 * multiplier && Motors_GetPosition(S1, 1, 2) < StartPosition2 + rotations * 1440 * multiplier)
 	{
 		Motors_SetSpeed(S1, 1, 1, 100);
 		Motors_SetSpeed(S1, 1, 2, -100);
@@ -22,6 +22,15 @@ void forward(float rotations)
 
 		Motors_SetSpeed(S1, 1, 1, 0);
 		Motors_SetSpeed(S1, 1, 2, 0);
+}
+
+void forwardTime(float time)
+{
+	Motors_SetSpeed(S1, 1, 1, 10);
+	Motors_SetSpeed(S1, 1, 2, -10);
+	Sleep(time*500*multiplier);
+	Motors_SetSpeed(S1, 1, 1, 0);
+	Motors_SetSpeed(S1, 1, 2, 0);
 }
 
 /*			RIGHT			*/
