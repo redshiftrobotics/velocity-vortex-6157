@@ -23,28 +23,10 @@ float mult = 0.58;
 
 task main()
 {
-	//waitForStart();
+	waitForStart();
 	grabberUp();
 	servo[servo2] = 30;
-	forward(13.2*mult);
-	forwardSlow(1.1);
-	turnLSlow(0.2);
-	forwardSuperSlow(1.1);
-	grabberDown();
-	wait1Msec(500);
-	turnL(1.9);
-	//turnL(1.6); without left turn
-	forward(2.3*mult);
-	//turnL(1.1); without left turn
-	turnL(0.85);
-	forward(14.3*mult);
-	forwardSuperSlow(1.1);
-	//turnR(0.8);
-	//forward(1.2*mult);
-	/*turnR(0.3);
-	forward(0.4*mult);
-	turnR(0.1);
-	forward(1.1*mult);
-*/
+	forward(15.2*mult);
+
 
 }
