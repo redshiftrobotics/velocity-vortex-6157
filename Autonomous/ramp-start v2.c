@@ -20,7 +20,7 @@
 //float multiplier = 2.0; //This variable can account for different gear ratios between robots.
 //17 for 1.0 forward on test bot
 float mult = 0.58;
-
+float turnmult = 1.9;
 task main()
 {
 	//waitForStart();
@@ -32,13 +32,14 @@ task main()
 	forwardSuperSlow(1.1);
 	grabberDown();
 	wait1Msec(500);
-	turnL(1.9);
+	turnL(1.9*turnmult);
 	//turnL(1.6); without left turn
 	forward(2.3*mult);
 	//turnL(1.1); without left turn
-	turnL(0.85);
-	forward(14.3*mult);
-	forwardSuperSlow(1.1);
+	turnL(1.1*turnmult);
+	forward(14.1*mult);
+	turnR(0.9*turnmult);
+	forwardSuperSlow(2.1);
 	//turnR(0.8);
 	//forward(1.2*mult);
 	/*turnR(0.3);
