@@ -36,6 +36,18 @@ void forward(float time)
 
 }
 
+void backward(float time)
+{
+	//numbers to try: 65, 55,50
+
+	motor[motorA]=-50;
+	motor[motorB]=100;
+	Sleep(time*500*multiplier);
+	motor[motorA]=0;
+	motor[motorB]=0;
+
+}
+
 void forwardSlow(float time)
 {
 	motor[motorA]=32.5;
