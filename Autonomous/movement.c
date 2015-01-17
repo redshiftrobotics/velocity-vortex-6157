@@ -26,8 +26,8 @@ void forwardOLD(float rotations)
 
 void forward(float time)
 {
-	//numbers to try: 65, 55,50
 
+	//numbers to try: 65, 55, 50
 	motor[motorA]=50;
 	motor[motorB]=-100;
 	Sleep(time*500*multiplier);
@@ -46,6 +46,23 @@ void backward(float time)
 	motor[motorA]=0;
 	motor[motorB]=0;
 
+}
+
+void ultraSleep(int sleepTime)
+{
+
+	motor[motorA]=0;
+	motor[motorB]=0;
+	if(SensorValue(sonarRight) < 20)
+	{
+		return;
+	}
+	else
+	{
+		motor[motorA]=50;
+		motor[motorB]=-100;
+		wait1Msec(100);
+	}
 }
 
 void forwardSlow(float time)

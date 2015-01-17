@@ -1,7 +1,7 @@
 #pragma config(Hubs,  S1, HTMotor,  HTServo,  none,     none)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     IROne,          sensorI2CCustom)
 #pragma config(Sensor, S3,     IRTwo,          sensorI2CCustom)
+#pragma config(Sensor, S4,     sonarRight,     sensorSONAR)
 #pragma config(Motor,  mtr_S1_C1_1,     motorA,        tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C1_2,     motorB,        tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C2_1,    servo1,               tServoStandard)
@@ -19,22 +19,87 @@
 
 #include "JoystickDriver.c"
 #include "movement.c"
-
+#include "hitechnic-irseeker-v2.h"
 // example.c
 
 //float multiplier = 2.0; //This variable can account for different gear ratios between robots.
 //17 for 1.0 forward on test bot
-float mult = 0.58;
+
+typedef struct
+{
+  int A;
+  int B;
+  int C;
+  int D;
+  int E;
+} Values;
+
+
+Values IR_TwoValue;
+
+void IR_Update()
+{
+	//HTIRS2readAllACStrength(IROne, IR_OneValue.A, IR_OneValue.B, IR_OneValue.C, IR_OneValue.D, IR_OneValue.E);
+	HTIRS2readAllACStrength(IRTwo, IR_TwoValue.A, IR_TwoValue.B, IR_TwoValue.C, IR_TwoValue.D, IR_TwoValue.E);
+}
+
+int checkpos(){
+
+	if(SensorValue(sonarRight) >= 240)
+	{
+		return 2;
+	}
+	else
+	{
+		return 5;
+	}
+}
+
+int checkIR(){
+	IR_Update();
+	if(IR_TwoValue.C > 20)
+	{
+		return 3;
+	}
+	else
+	{
+		return 1;
+	}
+}
 
 task main()
 {
-	//waitForStart();
-	turnR(2.0);
-	turnL(2.0);
-	//wait10Msec();
+	// Test loop
+	/*
+	while(true){
+		IR_Update();
+		writeDebugStreamLine("%i | Pos: %i", IR_TwoValue.C, checkpos());
+		wait1Msec(100);
+	}
+	*/
+	while(true){
+	int pos = checkpos();
+	if(pos == 2)
+	{
+		writeDebugStreamLine("2");
+	}
+	else
+	{
+		int posIR = checkIR();
+		if (posIR == 1)
+		{
+			writeDebugStreamLine("1");
+		}
+		else
+		{
+			writeDebugStreamLine("3");
 
+	}
+	wait1Msec(1000);
 	//turnR(2.0);
 	//motor[motorA] = 100;
 	//wait10Msec(100);
 
+}
+}
 }
