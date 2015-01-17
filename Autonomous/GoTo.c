@@ -1,5 +1,5 @@
 float x = 0.0;
-float y = 0.0;
+float y = 9.0;
 float angle = 0.0;
 
 float gotoPos(float xnew, float ynew)
@@ -7,9 +7,22 @@ float gotoPos(float xnew, float ynew)
 	float a = xnew - x;
 	float b = ynew - y;
 	float c = sqrt((a * a) + (b * b));
-	int AngleNew = asin(b/c);
+	float idk = b/c;
+	float AngleNew = asin(idk);
+	writeDebugStreamLine("Radians: %f", AngleNew);
+	AngleNew = AngleNew * 180 / PI;
 	return AngleNew;
 }
+
 task main() {
-	writeDebugStreamLine("Position: %i", gotoPos(10,0));
+	int anglething = gotoPos(10.0,1.0);
+	while(anglething < 0)
+	{
+		anglething = anglething + 360;
+	}
+	while(anglething >= 360)
+	{
+		anglething = anglething - 360;
+	}
+	writeDebugStreamLine("Degrees: %f", anglething);
 }
