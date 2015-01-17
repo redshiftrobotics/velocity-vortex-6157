@@ -67,21 +67,48 @@ int checkIR(){
 	}
 }
 
+void sonarSeek()
+{
+	while(SensorValue(sonarRight) >= 30){
+		if(SensorValue(sonarRight) != 255)
+		{
+			forwardSlow(0.01);
+		}
+		else
+		{
+			//turnL(0.5);
+			//while(SensorValue(sonarRight) >= 245)
+			//{
+			//	turnR(0.03);
+			//}
+
+		}
+
+	}
+	return;
+}
+
 task main()
 {
 	// Test loop
-	/*
-	while(true){
-		IR_Update();
-		writeDebugStreamLine("%i | Pos: %i", IR_TwoValue.C, checkpos());
-		wait1Msec(100);
-	}
-	*/
-	while(true){
+
+	//while(true)
+	//{
+	//	IR_Update();
+	//	writeDebugStreamLine("IR: %i | Sonar: %i", IR_TwoValue.C, SensorValue(sonarRight));
+	//	wait1Msec(500);
+	//}
+	//while(true){
 	int pos = checkpos();
 	if(pos == 2)
 	{
 		writeDebugStreamLine("2");
+		turnL(1.5);
+		forward(2.0);
+		turnR(2.1);
+		forward(1.7);
+		sonarSeek();
+
 	}
 	else
 	{
@@ -89,17 +116,27 @@ task main()
 		if (posIR == 1)
 		{
 			writeDebugStreamLine("1");
+			turnL(2.0);
+			forward(2.0);
+			turnR(2.0);
+			forward(4.0);
+			turnR(2.0);
+			forward(3.0);
+			sonarSeek();
 		}
 		else
 		{
 			writeDebugStreamLine("3");
+			forward(1.5);
+			sonarSeek();
+		}
 
-	}
-	wait1Msec(1000);
+
+
+//	wait1Msec(1000);
 	//turnR(2.0);
 	//motor[motorA] = 100;
 	//wait10Msec(100);
-
-}
+//}
 }
 }
