@@ -94,79 +94,22 @@ void sonarSeek()
 	}
 }
 
-task debug()
-{
-	while(true)
-	{
-
-		writeDebugStreamLine("Sonar: %i", SensorValue(sonarRight));
-		wait1Msec(500);
-	}
-}
-
 task main()
 {
 
-servo[servo2] = 120;
-arm(3);
-
-//waitforstart();
-
-// Test loop
-
-	//while(true)
-	//{
-	//	IR_Update();
-	//	writeDebugStreamLine("IR: %i | Sonar: %i", IR_TwoValue.C, SensorValue(sonarRight));
-	//	wait1Msec(500);
+		//60
+		//125
+		//185
+		servo[servo2] = 125;
+		wait10Msec(300);
+		arm(2);
+		servo[servo2] = 185;
+		wait1Msec(10000);
+		servo[servo2] = 185;
+	//int val = 0;
+	//for(for val < 255){
+	//	val++;
+	//	servo[servo2] = val;
+	//	writeDebugStreamLine("Servo Angle: ", val);
 	//}
-	//while(true){
-
-//START
-	StartTask(debug);
-	int pos = checkpos();
-	if(pos == 2)
-	{
-		writeDebugStreamLine("2");
-		turnL(1.5);
-		forward(2.0);
-		turnR(2.1);
-		forward(1.7);
-		sonarSeek();
-		arm(4);
-		servo[servo2] = 200;
-
-	}
-	else
-	{
-		int posIR = checkIR();
-		if (posIR == 1)
-		{
-			writeDebugStreamLine("1");
-			turnL(2.0);
-			forward(3.0);
-			turnR(2.1);
-			forward(3.0);
-			turnR(2.0);
-			sonarSeek();
-			arm(4);
-			servo[servo2] = 200;
-		}
-		else
-		{
-			writeDebugStreamLine("3");
-			forward(1.7);
-			sonarSeek();
-			arm(3);
-			servo[servo2] = 200;
-		}
-
-
-	//wait1Msec(1000);
-	//turnR(2.0);
-	//motor[motorA] = 100;
-	//wait10Msec(100);
-}
-
-
 }

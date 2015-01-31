@@ -11,7 +11,7 @@
 
 (C) Copyright 014 Samin Zach and Matthew Kelsey
 
-This file is part of the FTC team 6157 application code.
+This file is part 1of the FTC team 6157 application code.
 
 FTC team 6157 application code is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -56,6 +56,8 @@ I don't think either of these complications are related to the infinity bug dire
 thing as the infinity bug.
 
 In retrospect no real progress was made today.
+
+
 
 */
 
@@ -132,6 +134,7 @@ void dumperBackward()
 
 task main()
 {
+	int startTele = Motors_GetPosition(S1, 3, 1);
 	int SpeedLeft = 0;
 	int SpeedRight = 0;
 	int SpeedArm = 0;
@@ -195,17 +198,41 @@ task main()
 
 		if(joy2Btn(1) == 1)
 		{
-			servo2angle = 1;
+			servo2angle = 60;
 		}
 		else if(joy2Btn(2) == 1)
 		{
-			servo2angle = 70;
+			servo2angle = 125;
 		}
 		else if(joy2Btn(3) == 1)
 		{
-			servo2angle = 120;
+			servo2angle = 185;
 		}
 		else{}
+
+//ARM
+		if(joystick.joy2_TopHat == 0) //CENTER
+		{
+			while(Motors_GetPosition(S1, 3, 1) - startTele < 17000)
+			{
+				Motors_SetSpeed(S1, 3, 1, 100);
+			}
+		}
+		else if(joystick.joy2_TopHat == 6) //LARGE
+		{
+			while(Motors_GetPosition(S1, 3, 1) - startTele < 11100)
+			{
+				Motors_SetSpeed(S1, 3, 1, 100);
+			}
+		}
+		else if(joystick.joy2_TopHat == 4) //LARGE
+		{
+			while(Motors_GetPosition(S1, 3, 1) - startTele < 5500)
+			{
+				Motors_SetSpeed(S1, 3, 1, 100);
+			}
+		}
+
 
 
 		/* OLD DUMPPER
@@ -227,9 +254,10 @@ task main()
 
 	//writeDebugStream("Right: %i | ", SpeedRight);
 	//writeDebugStream("Left: %i", SpeedLeft);
-	//writeDebugStreamLine("");
+	//writeDebugStreamLine("")/;
 
-	writeDebugStreamLine("%i", SensorValue(sonar));
+	//writeDebugStreamLine("%i", Motors_GetPosition(S1, 3, 1));
+		writeDebugStreamLine("%i", servo2angle);
 	Servos_SetPosition(S1, 2, 1, servoangle);
 	Servos_SetPosition(S1, 2, 2, servo2angle);
 	Motors_SetSpeed(S1, 1, 1, -SpeedLeft);

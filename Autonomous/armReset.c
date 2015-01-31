@@ -107,9 +107,6 @@ task debug()
 task main()
 {
 
-servo[servo2] = 120;
-arm(3);
-
 //waitforstart();
 
 // Test loop
@@ -123,50 +120,12 @@ arm(3);
 	//while(true){
 
 //START
-	StartTask(debug);
-	int pos = checkpos();
-	if(pos == 2)
-	{
-		writeDebugStreamLine("2");
-		turnL(1.5);
-		forward(2.0);
-		turnR(2.1);
-		forward(1.7);
-		sonarSeek();
-		arm(4);
-		servo[servo2] = 200;
 
-	}
-	else
-	{
-		int posIR = checkIR();
-		if (posIR == 1)
-		{
-			writeDebugStreamLine("1");
-			turnL(2.0);
-			forward(3.0);
-			turnR(2.1);
-			forward(3.0);
-			turnR(2.0);
-			sonarSeek();
-			arm(4);
-			servo[servo2] = 200;
-		}
-		else
-		{
-			writeDebugStreamLine("3");
-			forward(1.7);
-			sonarSeek();
-			arm(3);
-			servo[servo2] = 200;
-		}
+	arm(5);
 
 
 	//wait1Msec(1000);
 	//turnR(2.0);
 	//motor[motorA] = 100;
 	//wait10Msec(100);
-}
-
-
 }

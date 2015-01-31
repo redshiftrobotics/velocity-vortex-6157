@@ -1,5 +1,4 @@
 #pragma config(Hubs,  S1, HTMotor,  HTServo,  none,     none)
-#pragma config(Sensor, S3,     ,               sensorSONAR)
 #pragma config(Sensor, S4,     sonarRight,     sensorSONAR)
 #pragma config(Motor,  mtr_S1_C1_1,     motorA,        tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C1_2,     motorB,        tmotorTetrix, openLoop)

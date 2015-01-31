@@ -151,3 +151,48 @@ void grabberUp(){
 	servo[servo1] = 95;
 
 }
+
+//Encoder Counts for Goals:
+//Large Goal: 17263
+//Medium Goal: 11000
+//Small Goal: 4950
+//Center: 24500
+
+void arm(int tubesize){
+	int startPos = nMotorEncoder[motorC];
+	if(tubesize == 0)
+
+	{
+		while(nMotorEncoder[motorC] - startPos < 5500)
+		{
+			motor[motorC] = 100;
+		}
+		motor[motorC] = 0;
+	}
+	else if(tubesize == 1)
+	{
+		while(nMotorEncoder[motorC] - startPos < 11100)
+		{
+			motor[motorC] = 100;
+		}
+		motor[motorC] = 0;
+	}
+	else if(tubesize == 2)
+	{
+		while(nMotorEncoder[motorC] - startPos < 17263)
+		{
+			motor[motorC] = 100;
+		}
+		motor[motorC] = 0;
+	}
+	else if(tubesize == 3)
+	{
+		while(nMotorEncoder[motorC] - startPos < 17000)
+		{
+			motor[motorC] = 100;
+		}
+		motor[motorC] = 0;
+	}
+
+
+}
