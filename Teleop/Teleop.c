@@ -9,7 +9,7 @@
 
 /*
 
-(C) Copyright 014 Samin Zach and Matthew Kelsey
+(C) Copyright 014 Samin Zachariah and Matthew Kelsey
 
 This file is part 1of the FTC team 6157 application code.
 
@@ -43,7 +43,7 @@ Many interesting developments were made in the way of discovering the cause of t
 Unfortunately the infinity bug was not reproducable after a good 45 minutes of solid robot driving with thourough movement
 and vigourous routines.
 
-First was that the constrain and joymotor functions were not infact written by 2856 and therefore are falible. (Not that
+First was that the constrain and joymotor functions were not infact written by 2856 and therefore are f\\alible. (Not that
 2856 is infallible but deffinitely less so than our team). I did however read through the functions and they appear to be
 completely functional. I also tried removing the constrain function (after consulting AJ to be sure it wouldn't burn out
 the motors). There was apparent difference, the small delay between controller input and robot action remained. I left the
@@ -123,7 +123,7 @@ void dumperForward()
 void dumperBackward()
 {
 	wait10Msec(10);
-	servo2angle = 50;
+	servo2angle = 60;
 	Servos_SetPosition(S1, 2, 2, servo2angle);
 	wait10Msec(1);
 	servo2angle = 126;
@@ -143,6 +143,8 @@ task main()
 	bool grabberToggle = true;
 	bool sweeperToggle = true;
 	bool dumperToggle = true;
+	int servo2angle = 60;
+	int servo3angle = 110;
 	while(true)
 	{
 
@@ -184,15 +186,59 @@ task main()
 
 
 //arm
+
+		//if(joystick.joy2_TopHat == 0){
+		//	while(Motors_GetPosition(S1, 3, 1) < 24500){
+		//		SpeedArm = 100;
+		//	}
+		//	SpeedArm = 0;
+		//}else if (joystick.joy2_TopHat == 6){
+		//	while(Motors_GetPosition(S1, 3, 1) < 17263){
+		//		SpeedArm = 100;
+		//	}
+		//	SpeedArm = 0;
+		//}else if (joystick.joy2_TopHat == 4){
+		//	while(Motors_GetPosition(S1, 3, 1) < 11100){
+		//		SpeedArm = 100;
+		//	}
+		//	SpeedArm = 0;
+		//}else{
+		//	SpeedArm = 0;
+		//}
+
+		//if(joy2Btn(6+1) == 1)
+		//{
+		//	SpeedArm = joymotor(joystick.joy2_y1/2);
+
+		//}
+		//else
+		//{
+		//	SpeedArm = joymotor(joystick.joy2_y1);
+		//}
+
 		if(joy2Btn(6+1) == 1)
 		{
-			SpeedArm = joymotor(joystick.joy2_y1/2);
+			SpeedArm = -joymotor(joystick.joy2_y1/2);
 
 		}
 		else
 		{
-			SpeedArm = joymotor(joystick.joy2_y1);
+			SpeedArm = -joymotor(joystick.joy2_y1);
+
 		}
+
+		//COMMMENT THIS OUT IF THE STOPPER IS MALFUNCTIONING
+
+		if(Motors_GetPosition(S1, 3, 1) <= startTele + 500 && servo2angle == 60)
+		{
+			servo3angle = 102;
+		}
+		else
+		{
+			servo3angle = 255;
+		}
+
+		//end
 
 //DUMPER
 
@@ -202,21 +248,22 @@ task main()
 		}
 		else if(joy2Btn(2) == 1)
 		{
-			servo2angle = 125;
+			servo2angle = 85;
 		}
 		else if(joy2Btn(3) == 1)
 		{
-			servo2angle = 185;
+			servo2angle = 125;
 		}
 		else{}
 
 //ARM
-		if(joystick.joy2_TopHat == 0) //CENTER
+	/*	if(joystick.joy2_TopHat == 0) //CENTER
 		{
 			while(Motors_GetPosition(S1, 3, 1) - startTele < 17000)
 			{
 				Motors_SetSpeed(S1, 3, 1, 100);
 			}
+			Motors_SetSpeed(S1, 3, 1, 0);
 		}
 		else if(joystick.joy2_TopHat == 6) //LARGE
 		{
@@ -224,6 +271,7 @@ task main()
 			{
 				Motors_SetSpeed(S1, 3, 1, 100);
 			}
+			Motors_SetSpeed(S1, 3, 1, 0);
 		}
 		else if(joystick.joy2_TopHat == 4) //LARGE
 		{
@@ -231,9 +279,10 @@ task main()
 			{
 				Motors_SetSpeed(S1, 3, 1, 100);
 			}
+			Motors_SetSpeed(S1, 3, 1, 0);
 		}
 
-
+*/
 
 		/* OLD DUMPPER
 		if(joy2Btn(1) == 1)
@@ -260,8 +309,9 @@ task main()
 		writeDebugStreamLine("%i", servo2angle);
 	Servos_SetPosition(S1, 2, 1, servoangle);
 	Servos_SetPosition(S1, 2, 2, servo2angle);
+	Servos_SetPosition(S1, 2, 3, servo3angle);
+	Motors_SetSpeed(S1, 3, 1, -SpeedArm);
 	Motors_SetSpeed(S1, 1, 1, -SpeedLeft);
-	Motors_SetSpeed(S1, 3, 1, SpeedArm);
 	Motors_SetSpeed(S1, 1, 2, SpeedRight);
 
 
