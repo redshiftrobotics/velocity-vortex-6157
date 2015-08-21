@@ -218,18 +218,18 @@ task main()
 
 		if(joy2Btn(6+1) == 1)
 		{
-			SpeedArm = -joymotor(joystick.joy2_y1/2);
+			SpeedArm = joymotor(joystick.joy2_y1/2);
 
 		}
 		else
 		{
-			SpeedArm = -joymotor(joystick.joy2_y1);
+			SpeedArm = joymotor(joystick.joy2_y1);
 
 		}
 
 		//COMMMENT THIS OUT IF THE STOPPER IS MALFUNCTIONING
 
-		if(Motors_GetPosition(S1, 3, 1) <= startTele + 500 && servo2angle == 60)
+		if(Motors_GetPosition(S1, 3, 1) >= startTele - 500 && servo2angle == 60 && joy2Btn(12) != 1)
 		{
 			servo3angle = 102;
 		}
@@ -252,7 +252,7 @@ task main()
 		}
 		else if(joy2Btn(3) == 1)
 		{
-			servo2angle = 125;
+			servo2angle = 130;
 		}
 		else{}
 
