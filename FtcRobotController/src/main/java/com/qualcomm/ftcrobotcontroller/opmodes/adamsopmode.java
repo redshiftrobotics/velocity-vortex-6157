@@ -53,9 +53,7 @@ public adamsopmode(){
         mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
 		//myarmcontroller = hardwareMap.dcMotorController.get("arm_controller");
 
-
-
-        my_dcmotor_left= hardwareMap.dcMotor.get ("left_drive");
+		my_dcmotor_left= hardwareMap.dcMotor.get ("left_drive");
        my_dcmotor_right = hardwareMap.dcMotor.get ("right_drive");
 
 		//dcmotor_arm = hardwareMap.dcMotor.get("arm_motor");
@@ -72,8 +70,10 @@ public adamsopmode(){
         telemetry.addData("1 Start", "NullOp started at " + startDate);
         telemetry.addData("2 Status", "running for " + runtime.toString());
 
+
         my_dcmotor_left.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
         my_dcmotor_right.setPower(Range.clip ((-gamepad1.right_stick_y), -1, 1));
+
 
 		//dcmotor_arm.setPower(Range.clip((-gamepad1.right_stick_x), -1, 1));
 
