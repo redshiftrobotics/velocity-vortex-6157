@@ -38,7 +38,7 @@ public duncansopmode(){
     private DcMotor my_dcmotor_left;
     private DcMotor my_dcmotor_right;
     private DcMotor arm_lift;
-    private Servo arm_rotation
+    private Servo arm_rotation;
     /*
      * Code to run when the op mode is first enabled goes here
      * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
