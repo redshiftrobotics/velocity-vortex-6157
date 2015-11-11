@@ -49,6 +49,7 @@ public class adamsopmode extends OpMode {
 	//private Servo arm_servo;
 	private Servo robot_front_left;
 	private Servo robot_front_right;
+	private Servo front_arm_rotation;
 
 	public double front_right_servo_position = 0;
 	public double front_left_servo_position = 0;
@@ -70,6 +71,7 @@ public class adamsopmode extends OpMode {
 		my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
 		robot_front_left = hardwareMap.servo.get("frontleftservo");
 		robot_front_right = hardwareMap.servo.get("frontrightservo");
+        front_arm_rotation = hardwareMap.servo.get("frontarmservo");
 
 		double front_right_servo_position = 0.0;
 		double front_left_servo_position = 0.0;
@@ -87,7 +89,15 @@ public class adamsopmode extends OpMode {
 		telemetry.addData("2 Status", "running for " + runtime.toString());
 		my_dcmotor_left.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
 		my_dcmotor_right.setPower(Range.clip((gamepad1.right_stick_y), -1, 1));
-		dcmotor_arm.setPower(Range.clip((-gamepad1.right_stick_x), -1, 1));
+		dcmotor_arm.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
+        robot_front_right.setPosition(Range.clip((gamepad2.right_stick_x), 0.0, 1.0));
+        robot_front_left.setPosition(Range.clip((gamepad2.left_stick_x),0.0,1.0));
+        front_arm_rotation.setPosition(Range.clip((gamepad2.left_stick_y),0.0,1.0));
+
+        if (gamepad2.y){
+
+            front_arm_rotation.setPosition(0.5);
+        }
 
 
 		/*if (gamepad1.right_bumper && front_right_servo_position < 1.0) {
@@ -99,18 +109,7 @@ public class adamsopmode extends OpMode {
 			robot_front_left.setPosition(front_left_servo_position);
 			front_left_servo_position+= 0.01;
 		}*/
-		if (gamepad1.a) {
-			robot_front_left.setPosition(1.0);
 
-		}
-		else if (gamepad1.b){robot_front_left.setPosition(0.0);}
-		if (gamepad1.x){
-
-			robot_front_right.setPosition(0.2);
-		}
-		else if (gamepad1.y){
-			robot_front_right.setPosition(1.0);
-		}
 
 
 
