@@ -51,8 +51,21 @@ public class adamsopmode extends OpMode {
 	private Servo robot_front_right;
 	private Servo front_arm_rotation;
 
-	public double front_right_servo_position = 0;
-	public double front_left_servo_position = 0;
+	public void setDrivePower(double leftpower, double rightpower){
+		this.my_dcmotor_left.setPower(leftpower);
+		this.my_dcmotor_right.setPower(rightpower);
+	}
+
+	public void setArmLiftPower (double power){
+
+		this.dcmotor_arm.setPower(power);
+	}
+
+	public void setServoPosition(double frontleftpos, double frontrightpos, double armrotationpos){
+		this.robot_front_left.setPosition(frontleftpos);
+		this.robot_front_right.setPosition(frontrightpos);
+		this.front_arm_rotation.setPosition(armrotationpos);
+	}
 
 	/*
      * Code to run when the op mode is first enabled goes here
@@ -71,10 +84,8 @@ public class adamsopmode extends OpMode {
 		my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
 		robot_front_left = hardwareMap.servo.get("frontleftservo");
 		robot_front_right = hardwareMap.servo.get("frontrightservo");
-        front_arm_rotation = hardwareMap.servo.get("frontarmservo");
+       front_arm_rotation = hardwareMap.servo.get("frontarmservo");
 
-		double front_right_servo_position = 0.0;
-		double front_left_servo_position = 0.0;
 
 
 	}
@@ -85,32 +96,6 @@ public class adamsopmode extends OpMode {
      */
 	@Override
 	public void loop() {
-		telemetry.addData("1 Start", "NullOp started at " + startDate);
-		telemetry.addData("2 Status", "running for " + runtime.toString());
-		my_dcmotor_left.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
-		my_dcmotor_right.setPower(Range.clip((gamepad1.right_stick_y), -1, 1));
-		dcmotor_arm.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
-        robot_front_right.setPosition(Range.clip((gamepad2.right_stick_x), 0.0, 1.0));
-        robot_front_left.setPosition(Range.clip((gamepad2.left_stick_x),0.0,1.0));
-        front_arm_rotation.setPosition(Range.clip((gamepad2.left_stick_y),0.0,1.0));
-
-        if (gamepad2.y){
-
-            front_arm_rotation.setPosition(0.5);
-        }
-
-
-		/*if (gamepad1.right_bumper && front_right_servo_position < 1.0) {
-
-			robot_front_right.setPosition(front_right_servo_position);
-			front_right_servo_position += 0.01;
-		}
-		if (gamepad1.left_bumper && front_left_servo_position < 1.0) {
-			robot_front_left.setPosition(front_left_servo_position);
-			front_left_servo_position+= 0.01;
-		}*/
-
-
 
 
 	}
