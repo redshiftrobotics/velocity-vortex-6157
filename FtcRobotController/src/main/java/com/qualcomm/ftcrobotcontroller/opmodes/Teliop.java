@@ -91,9 +91,20 @@ public class Teliop extends OpMode {
 		my_dcmotor_right.setPower(Range.clip((gamepad1.right_stick_y), -1, 1));
 		dcmotor_arm.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
 		front_arm_rotation.setPosition(Range.clip((gamepad2.right_stick_x), 0.0, 1.0));
-        robot_front_right.setPosition(Range.clip((gamepad1.right_stick_x), 0.0, 1.0));
-        robot_front_left.setPosition(Range.clip((gamepad1.left_stick_x * -1),0.0,1.0));
+//        robot_front_right.setPosition(Range.clip((gamepad1.right_stick_x), 0.0, 1.0));
+//        robot_front_left.setPosition(Range.clip((gamepad1.left_stick_x * -1),0.0,1.0));
 
+
+		if (gamepad1.right_bumper){
+			robot_front_right.setPosition(0.0);
+		}else{
+			robot_front_right.setPosition(0.5);
+		}
+		if (gamepad1.left_bumper){
+			robot_front_right.setPosition(1.0);
+		}else{
+			robot_front_right.setPosition(0.5);
+		}
 
         if (gamepad2.y){
 
