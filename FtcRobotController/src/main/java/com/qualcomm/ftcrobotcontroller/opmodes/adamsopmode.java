@@ -23,6 +23,8 @@ import com.qualcomm.robotcore.util.Range;
  * <p>
  *Enables control of the robot via the gamepad
  */
+
+
 public class adamsopmode extends OpMode {
 
 
@@ -32,40 +34,26 @@ public class adamsopmode extends OpMode {
 
 	}
 
-	private String startDate;
-	private ElapsedTime runtime = new ElapsedTime();
+	protected String startDate;
+	protected ElapsedTime runtime = new ElapsedTime();
 
 	//Controllers
-	private DcMotorController mydcmotorcontroller;
+	protected DcMotorController mydcmotorcontroller;
 
-	private ServoController Robot_servo_Controller;
-	private DcMotorController myarmcontroller;
+	protected ServoController Robot_servo_Controller;
+	protected DcMotorController myarmcontroller;
 	//Motors
-	private DcMotor my_dcmotor_left;
-	private DcMotor my_dcmotor_right;
-	private DcMotor dcmotor_arm;
+	protected DcMotor my_dcmotor_left;
+	protected DcMotor my_dcmotor_right;
+	protected DcMotor dcmotor_arm;
 
 	//Servos
-	//private Servo arm_servo;
-	private Servo robot_front_left;
-	private Servo robot_front_right;
-	private Servo front_arm_rotation;
 
-	public void setDrivePower(double leftpower, double rightpower){
-		this.my_dcmotor_left.setPower(leftpower);
-		this.my_dcmotor_right.setPower(rightpower);
-	}
+	protected Servo robot_front_left;
+	protected Servo robot_front_right;
+	protected Servo front_arm_rotation;
 
-	public void setArmLiftPower (double power){
 
-		this.dcmotor_arm.setPower(power);
-	}
-
-	public void setServoPosition(double frontleftpos, double frontrightpos, double armrotationpos){
-		this.robot_front_left.setPosition(frontleftpos);
-		this.robot_front_right.setPosition(frontrightpos);
-		this.front_arm_rotation.setPosition(armrotationpos);
-	}
 
 	/*
      * Code to run when the op mode is first enabled goes here
