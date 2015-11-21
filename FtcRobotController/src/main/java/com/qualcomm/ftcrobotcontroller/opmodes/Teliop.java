@@ -96,15 +96,19 @@ public class Teliop extends OpMode {
 
 
 		if (gamepad1.right_bumper){
+				telemetry.addData("2", "GamePad.Right_bumper active");
 				robot_front_right.setPosition(1.0);
 		}
 		else    {
+			telemetry.addData("2", "GamePad.Right_bumper deactive");
 			robot_front_right.setPosition(0.0);
 		}
 		if (gamepad1.left_bumper){
+			telemetry.addData("2", "GamePad.Left_bumper active");
 			robot_front_left.setPosition(1.0);
 		}
 		else {
+			telemetry.addData("2", "GamePad.Left_bumper deactive");
 			robot_front_left.setPosition(0.0);
 		}
 

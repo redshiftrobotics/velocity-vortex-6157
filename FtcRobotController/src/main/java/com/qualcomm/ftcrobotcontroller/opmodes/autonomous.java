@@ -54,7 +54,10 @@ public class autonomous extends LinearOpMode {
 
 		//basic autonomous: drive and park in colored zone
 		Robot.forward(2);
-
+		Robot.turn();
+		Robot.forward(12);
+		Robot.turn();
+		Robot.forward(1);
 	}
 
 
