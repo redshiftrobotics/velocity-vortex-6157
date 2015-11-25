@@ -40,18 +40,18 @@ public class adamsopmode extends OpMode {
 	//Controllers
 	protected DcMotorController mydcmotorcontroller;
 
-	protected ServoController Robot_servo_Controller;
-	protected DcMotorController myarmcontroller;
+	//protected ServoController Robot_servo_Controller;
+	//protected DcMotorController myarmcontroller;
 	//Motors
 	protected DcMotor my_dcmotor_left;
 	protected DcMotor my_dcmotor_right;
-	protected DcMotor dcmotor_arm;
+	// DcMotor dcmotor_arm;
 
 	//Servos
 
-	protected Servo robot_front_left;
+	/*protected Servo robot_front_left;
 	protected Servo robot_front_right;
-	protected Servo front_arm_rotation;
+	protected Servo front_arm_rotation;*/
 
 
 
@@ -64,15 +64,15 @@ public class adamsopmode extends OpMode {
 		startDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
 		runtime.reset();
 
-		mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
-		myarmcontroller = hardwareMap.dcMotorController.get("arm_controller");
+			mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
+		/*myarmcontroller = hardwareMap.dcMotorController.get("arm_controller");
 		Robot_servo_Controller = hardwareMap.servoController.get("servo_controller");
-		dcmotor_arm = hardwareMap.dcMotor.get("arm_motor");
+		dcmotor_arm = hardwareMap.dcMotor.get("arm_motor"); */
 		my_dcmotor_left = hardwareMap.dcMotor.get("left_drive");
 		my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
-		robot_front_left = hardwareMap.servo.get("frontleftservo");
+		/*robot_front_left = hardwareMap.servo.get("frontleftservo");
 		robot_front_right = hardwareMap.servo.get("frontrightservo");
-       front_arm_rotation = hardwareMap.servo.get("frontarmservo");
+       front_arm_rotation = hardwareMap.servo.get("frontarmservo"); */
 
 
 

@@ -10,7 +10,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.adamsopmode;
 	adamsopmode baseop = new adamsopmode();
 
 	public void forward (float rotations) {
-		int startPos = baseop.my_dcmotor_left.getCurrentPosition();
+		double startPos = baseop.my_dcmotor_left.getCurrentPosition();
 		while(baseop.my_dcmotor_left.getCurrentPosition() - startPos < rotations*1400) {
 			//go forward
 			baseop.my_dcmotor_left.setPower(1);

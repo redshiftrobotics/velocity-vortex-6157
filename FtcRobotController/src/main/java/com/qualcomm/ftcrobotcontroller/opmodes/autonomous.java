@@ -34,7 +34,8 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IrSeekerSensor;
-import com.qualcomm.ftcrobotcontroller.opmodes.Robot;
+//import com.qualcomm.ftcrobotcontroller.opmodes.Robot;
+import com.qualcomm.ftcrobotcontroller.opmodes.adamsopmode;
 
 /**
  * This class simply contains the procedures for autonomous mode. For actual method definitions, see com/qualcomm/ftcrobotcontroller/opmodes/Robot.java.
@@ -42,23 +43,32 @@ import com.qualcomm.ftcrobotcontroller.opmodes.Robot;
 
 public class autonomous extends LinearOpMode {
 //create new Robot object so we can access its methods
-	Robot Robot = new Robot();
+	adamsopmode op = new adamsopmode();
+
+
+
 	@Override
 	public void runOpMode() throws InterruptedException {
 
-
-		//run init in baseop, which is adamsopmode.java
-		  Robot.baseop.init();
-		// wait for the start button to be pressed
+		op.mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
+		op.my_dcmotor_left = hardwareMap.dcMotor.get("left_drive");
+		op.my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
+		double startPos = op.my_dcmotor_left.getCurrentPosition();
 		waitForStart();
 
-		//basic autonomous: drive and park in colored zone
-		Robot.forward(2);
-		Robot.turn();
-		Robot.forward(12);
-		Robot.turn();
-		Robot.forward(1);
 
+		forward(5,startPos);
+
+	}
+
+
+	public void forward (double rotations, double startPos) {
+
+
+		while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= rotations*1400) {
+			op.my_dcmotor_left.setPower(1);
+			op.my_dcmotor_right.setPower(-1);
+		}
 	}
 
 
