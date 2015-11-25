@@ -71,7 +71,7 @@ public class Teliop extends OpMode {
 		my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
 		robot_front_left = hardwareMap.servo.get("frontleftservo");
 		robot_front_right = hardwareMap.servo.get("frontrightservo");
-        //front_arm_rotation = hardwareMap.servo.get("frontarmservo");
+		//front_arm_rotation = hardwareMap.servo.get("frontarmservo");
 
 		double front_right_servo_position = 0.0;
 		double front_left_servo_position = 0.0;
@@ -127,4 +127,4 @@ public class Teliop extends OpMode {
         }*/
 
 
-
+}
