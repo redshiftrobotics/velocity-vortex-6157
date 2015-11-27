@@ -66,8 +66,8 @@ public class autonomous extends LinearOpMode {
 
 
 		while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= rotations*1400) {
-			op.my_dcmotor_left.setPower(1);
-			op.my_dcmotor_right.setPower(-1);
+			op.my_dcmotor_left.setPower(1.0s);
+			op.my_dcmotor_right.setPower(1.0);
 		}
 	}
 
