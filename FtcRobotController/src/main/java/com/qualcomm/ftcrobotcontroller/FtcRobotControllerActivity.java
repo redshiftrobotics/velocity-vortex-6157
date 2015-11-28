@@ -52,6 +52,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.hardware.Camera;
 
 import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.ftccommon.FtcEventLoop;
@@ -70,10 +71,26 @@ import com.qualcomm.robotcore.wifi.WifiDirectAssistant;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.ServerSocket;
+
 
 public class FtcRobotControllerActivity extends Activity {
 
+	//////////////////////////////////////////////////////
+	//                      MODDED                      //
+	//////////////////////////////////////////////////////
+	private CameraPreview cp;
+	private Camera camera;
+	public static Camera getCameraInstance (){
+		Camera c = null;
+		c = Camera.open();
+		return c;
+	}
+	////////////////////////////////////////////////////
+	//                   END MODDED                   //
+	///////////////////////////////////////////////////
   private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
   private static final boolean USE_DEVICE_EMULATION = false;
   private static final int NUM_GAMEPADS = 2;
@@ -138,7 +155,24 @@ public class FtcRobotControllerActivity extends Activity {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_ftc_controller);
+	  ///////////////////////////////////////////////
+	  //				MODDED                     //
+	  //////////////////////////////////////////////
+	  Thread thread = new Thread(new Runnable() {
+		  @Override
+		  public void run() {
+			  try {
+				  ServerSocket ss = new ServerSocket(6157,50);
+				  ss.accept();
+			  } catch (IOException e) {
+				  e.printStackTrace();
+			  }
+		  }
+	  });
 
+	  /////////////////////////////////////////////
+	  //            END MODDED                   //
+	  ////////////////////////////////////////////
     utility = new Utility(this);
     context = this;
     entireScreenLayout = (LinearLayout) findViewById(R.id.entire_screen);

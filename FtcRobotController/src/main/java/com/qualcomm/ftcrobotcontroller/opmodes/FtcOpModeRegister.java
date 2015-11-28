@@ -58,6 +58,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("NullOp", NullOp.class);
 
 	  manager.register("autonomous",autonomous.class);
+	  manager.register("viewEncoderPosition", viewEncoderPosition.class);
 	  manager.register("simpleOp",simpleOP.class);
     manager.register("adamsopmode", adamsopmode.class);
     manager.register("duncansopmode", duncansopmode.class);

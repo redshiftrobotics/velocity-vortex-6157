@@ -42,35 +42,72 @@ import com.qualcomm.ftcrobotcontroller.opmodes.adamsopmode;
  */
 
 public class autonomous extends LinearOpMode {
-//create new Robot object so we can access its methods
-	adamsopmode op = new adamsopmode();
 
+	//change this based on encoder values for one full turn. To find this value, run viewEncoderPosition on robot until it has turned as close to 360 degrees as possible, then view /sdcard/Downloads/output.txt
+	private int fullturnvalue = 3278;
+	public adamsopmode op;
+	public autonomous() {
+		//create a new adamsopmode object in order to access base motors
+		this.op = new adamsopmode();
+	}
 
-
-	@Override
-	public void runOpMode() throws InterruptedException {
+	@Override public void runOpMode() throws InterruptedException {
 
 		op.mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
 		op.my_dcmotor_left = hardwareMap.dcMotor.get("left_drive");
 		op.my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
-		double startPos = op.my_dcmotor_left.getCurrentPosition();
+		double startPos = Math.abs(op.my_dcmotor_left.getCurrentPosition());
 		waitForStart();
 
+		//procedures for autonomous
+		forward(10,startPos);
 
-		forward(5,startPos);
+
+
+
+
+
+		//end procedures for autonomous
 
 	}
 
 
 	public void forward (double rotations, double startPos) {
 
-
 		while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= rotations*1400) {
-			op.my_dcmotor_left.setPower(1);
-			op.my_dcmotor_right.setPower(-1);
+			op.my_dcmotor_left.setPower(-1);
+			op.my_dcmotor_right.setPower(1);
+			telemetry.addData("Position ", "is: " + Math.abs(op.my_dcmotor_left.getCurrentPosition()));
+
+		}
+		stop(op.my_dcmotor_left, op.my_dcmotor_right);
+	}
+
+
+
+	public void turn(float degrees, int startPos, String direction){
+		float encoderval = fullturnvalue*(degrees/360);
+		double power;
+
+		if (direction == "RIGHT") {
+			power = -1.0;
+		}
+		else {
+			power = 1.0;
+		}
+
+		while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
+			op.my_dcmotor_left.setPower(power);
+			op.my_dcmotor_right.setPower(power);
+			telemetry.addData("Position ", "is: " + Math.abs(op.my_dcmotor_left.getCurrentPosition()));
+
 		}
 	}
 
+private void  stop(DcMotor dc1, DcMotor dc2){
+	dc1.setPower(0);
+	dc2.setPower(0);
+}
 
 }
 
