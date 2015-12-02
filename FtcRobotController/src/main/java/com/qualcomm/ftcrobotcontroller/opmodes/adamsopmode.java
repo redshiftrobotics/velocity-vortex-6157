@@ -85,6 +85,8 @@ public class adamsopmode extends OpMode {
 	@Override
 	public void loop() {
 
+		my_dcmotor_left.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
+		my_dcmotor_right.setPower(-Range.clip((gamepad1.right_stick_y), -1, 1));
 
 	}
 }
