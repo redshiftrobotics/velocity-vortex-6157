@@ -90,9 +90,7 @@ public class autonomous extends LinearOpMode {
 		float encoderval = fullturnvalue*(degrees/360);
 		double power;
 
-		if (direction == "RIGHT") {
-			power = -1.0;
-		}
+		if (direction == "RIGHT") power = -1.0;
 		else {
 			power = 1.0;
 		}
@@ -100,15 +98,16 @@ public class autonomous extends LinearOpMode {
 		while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
 			op.my_dcmotor_left.setPower(power);
 			op.my_dcmotor_right.setPower(power);
-			telemetry.addData("Position ", "is: " + Math.abs(op.my_dcmotor_left.getCurrentPosition()));
 
 		}
+		stop(op.my_dcmotor_left,op.my_dcmotor_right);
+
 	}
 
-private void  stop(DcMotor dc1, DcMotor dc2){
-	dc1.setPower(0);
-	dc2.setPower(0);
-}
+	private void  stop(DcMotor dc1, DcMotor dc2) {
+		dc1.setPower(0);
+		dc2.setPower(0);
+	}
 
 }
 

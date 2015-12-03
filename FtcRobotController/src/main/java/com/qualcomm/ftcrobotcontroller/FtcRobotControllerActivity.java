@@ -155,9 +155,9 @@ public class FtcRobotControllerActivity extends Activity {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_ftc_controller);
-	  ///////////////////////////////////////////////
+	  ////////////////////////////////////////////////
 	  //				MODDED                     //
-	  //////////////////////////////////////////////
+	  ///////////////////////////////////////////////
 	  Thread thread = new Thread(new Runnable() {
 		  @Override
 		  public void run() {

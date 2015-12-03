@@ -49,6 +49,7 @@ public class Teliop extends OpMode {
 	//private Servo arm_servo;
 	private Servo robot_front_left;
 	private Servo robot_front_right;
+
 	//private Servo front_arm_rotation;
 
 	public double front_right_servo_position = 0;
@@ -121,10 +122,7 @@ public class Teliop extends OpMode {
 			front_left_servo_position += 0.01;
 		}
 	}
-       /* if (gamepad2.y){
 
-            //front_arm_rotation.setPosition(0.5);
-        }*/
 
 
 }
