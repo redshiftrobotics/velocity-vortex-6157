@@ -43,6 +43,7 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -164,12 +165,14 @@ public class FtcRobotControllerActivity extends Activity {
 			  try {
 				  ServerSocket ss = new ServerSocket(6157,50);
 				  ss.accept();
+
+				  Log.d("IPC:", "Communication Successful!");
 			  } catch (IOException e) {
 				  e.printStackTrace();
 			  }
 		  }
 	  });
-
+thread.start();
 	  /////////////////////////////////////////////
 	  //            END MODDED                   //
 	  ////////////////////////////////////////////

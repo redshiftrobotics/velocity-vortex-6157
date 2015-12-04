@@ -11,26 +11,19 @@ import java.net.SocketAddress;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-
-public class Event{
-
-	Socket socket;
-	InetAddress addr;
-
-	public Event (){
-
+public class Event {
+	private static InetAddress addr;
+	private static int port = 6157;
+	static {
 		try {
 			addr = InetAddress.getLocalHost();
-
-		}catch (UnknownHostException u){
-			u.printStackTrace();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
 		}
-
 	}
-
-	public void sendEvent () {
+	public static void sendEvent () {
 		try {
-			socket = new Socket(addr, 6157);
+			Socket socket = new Socket(addr, port);
 		}catch (IOException e){
 			e.printStackTrace();
 		}

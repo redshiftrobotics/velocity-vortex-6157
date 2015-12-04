@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IrSeekerSensor;
 //import com.qualcomm.ftcrobotcontroller.opmodes.Robot;
 import com.qualcomm.ftcrobotcontroller.opmodes.adamsopmode;
+import com.qualcomm.ftcrobotcontroller.Event;
 
 /**
  * This class simply contains the procedures for autonomous mode. For actual method definitions, see com/qualcomm/ftcrobotcontroller/opmodes/Robot.java.
@@ -58,15 +59,8 @@ public class autonomous extends LinearOpMode {
 		op.my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
 		double startPos = Math.abs(op.my_dcmotor_left.getCurrentPosition());
 		waitForStart();
-
 		//procedures for autonomous
 		forward(10,startPos);
-
-
-
-
-
-
 		//end procedures for autonomous
 
 	}
