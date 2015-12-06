@@ -65,17 +65,15 @@ public class Teliop extends OpMode {
 		runtime.reset();
 
 		mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
-		myarmcontroller = hardwareMap.dcMotorController.get("arm_controller");
+		//myarmcontroller = hardwareMap.dcMotorController.get("arm_controller");
 		Robot_servo_Controller = hardwareMap.servoController.get("servo_controller");
-		dcmotor_arm = hardwareMap.dcMotor.get("arm_motor");
+		//dcmotor_arm = hardwareMap.dcMotor.get("arm_motor");
 		my_dcmotor_left = hardwareMap.dcMotor.get("left_drive");
 		my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
 		robot_front_left = hardwareMap.servo.get("frontleftservo");
 		robot_front_right = hardwareMap.servo.get("frontrightservo");
 		//front_arm_rotation = hardwareMap.servo.get("frontarmservo");
 
-		double front_right_servo_position = 0.0;
-		double front_left_servo_position = 0.0;
 
 	}
 
@@ -85,12 +83,11 @@ public class Teliop extends OpMode {
      */
 	@Override
 	public void loop() {
-
 		telemetry.addData("1 Start", "NullOp started at " + startDate);
 		telemetry.addData("2 Status", "running for " + runtime.toString());
 		my_dcmotor_left.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
 		my_dcmotor_right.setPower(Range.clip((gamepad1.right_stick_y), -1, 1));
-		dcmotor_arm.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
+		//my_dcmotor_arm.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
 		//front_arm_rotation.setPosition(Range.clip((gamepad2.right_stick_x), 0.0, 1.0));
 		robot_front_right.setPosition(Range.clip((gamepad1.right_stick_x), 0.0, 1.0));
 		robot_front_left.setPosition(Range.clip((gamepad1.left_stick_x * -1), 0.0, 1.0));
@@ -113,16 +110,16 @@ public class Teliop extends OpMode {
 			robot_front_left.setPosition(0.0);
 			}*/
 
-		if (gamepad1.right_bumper && front_right_servo_position < 1.10) {
+		/*if (gamepad1.right_bumper && front_right_servo_position < 1.0) {
 			robot_front_right.setPosition(front_right_servo_position);
 			front_right_servo_position += 0.01;
 		}
 		if (gamepad1.left_bumper && front_left_servo_position < 1.0) {
 			robot_front_left.setPosition(front_left_servo_position);
 			front_left_servo_position += 0.01;
-		}
+
+		}*/
+
+
 	}
-
-
-
 }

@@ -41,6 +41,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -49,6 +50,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -72,9 +74,11 @@ import com.qualcomm.robotcore.wifi.WifiDirectAssistant;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.ServerSocket;
+import java.io.File;
 
 
 public class FtcRobotControllerActivity extends Activity {
@@ -82,8 +86,55 @@ public class FtcRobotControllerActivity extends Activity {
 	//////////////////////////////////////////////////////
 	//                      MODDED                      //
 	//////////////////////////////////////////////////////
-	private CameraPreview cp;
-	private Camera camera;
+	private CameraPreview cp = new CameraPreview(this, camera);
+	private Camera camera = getCameraInstance();
+	private Camera.PictureCallback pictureCallback = new Camera.PictureCallback(){
+
+		@Override
+		public void onPictureTaken(byte[] data, Camera camera) {
+			camera.startPreview();
+
+			File myfile = getOutputMediaFile();
+
+			if (myfile == null){
+				return;
+			}
+			try {
+				FileOutputStream fos = new FileOutputStream(myfile);
+				fos.write(data);
+				fos.close();
+			}catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+	};
+
+	/** Create a File for saving an image or video */
+	private static File getOutputMediaFile(){
+		// To be safe, you should check that the SDCard is mounted
+		// using Environment.getExternalStorageState() before doing this.
+		File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+				Environment.DIRECTORY_PICTURES), "processing");
+		// This location works best if you want the created images to be shared
+		// between applications and persist after your app has been uninstalled.
+
+		// Create the storage directory if it does not exist
+		if (! mediaStorageDir.exists()){
+			if (! mediaStorageDir.mkdirs()){
+				Log.d("processing", "failed to create directory");
+				return null;
+			}
+		}
+
+
+		// Create a media file name
+		File mediaFile;
+		mediaFile = new File(mediaStorageDir.getPath() + File.separator + "proc.jpg");
+		return mediaFile;
+	}
+
 	public static Camera getCameraInstance (){
 		Camera c = null;
 		c = Camera.open();
@@ -159,20 +210,34 @@ public class FtcRobotControllerActivity extends Activity {
 	  ////////////////////////////////////////////////
 	  //				MODDED                     //
 	  ///////////////////////////////////////////////
-	  Thread thread = new Thread(new Runnable() {
+	  final Thread thread = new Thread(new Runnable() {
 		  @Override
 		  public void run() {
 			  try {
 				  ServerSocket ss = new ServerSocket(6157,50);
 				  ss.accept();
+				  camera.takePicture(null, null, pictureCallback);
+				  ss.accept();
+				  camera.takePicture(null, null, pictureCallback);
+				  ss.accept();
+				  camera.takePicture(null, null, pictureCallback);
+				  ss.accept();
+				  camera.takePicture(null, null, pictureCallback);
+				  ss.accept();
+				  camera.takePicture(null, null, pictureCallback);
+				  ss.accept();
+				  camera.takePicture(null, null, pictureCallback);
 
-				  Log.d("IPC:", "Communication Successful!");
 			  } catch (IOException e) {
 				  e.printStackTrace();
 			  }
 		  }
 	  });
 thread.start();
+
+	  //FrameLayout view = (FrameLayout) findViewById(R.Id. putthinghere)
+
+
 	  /////////////////////////////////////////////
 	  //            END MODDED                   //
 	  ////////////////////////////////////////////

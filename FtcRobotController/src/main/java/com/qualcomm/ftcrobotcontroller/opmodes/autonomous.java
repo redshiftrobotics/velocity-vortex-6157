@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.IrSeekerSensor;
 //import com.qualcomm.ftcrobotcontroller.opmodes.Robot;
 import com.qualcomm.ftcrobotcontroller.opmodes.adamsopmode;
@@ -57,11 +58,18 @@ public class autonomous extends LinearOpMode {
 		op.mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
 		op.my_dcmotor_left = hardwareMap.dcMotor.get("left_drive");
 		op.my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
-		double startPos = Math.abs(op.my_dcmotor_left.getCurrentPosition());
+		int startPos = Math.abs(op.my_dcmotor_left.getCurrentPosition());
 		waitForStart();
 		//procedures for autonomous
-		forward(10,startPos);
+		forward(0.9, startPos);
+		sleep(3000);
+		turn(65, op.my_dcmotor_left.getCurrentPosition(), "LEFT");
+		sleep(5000);
+		forward(3.3, op.my_dcmotor_left.getCurrentPosition());
+		sleep(3000);
+		turn(90,startPos,"LEFT");
 		//end procedures for autonomous
+
 
 	}
 
@@ -70,9 +78,10 @@ public class autonomous extends LinearOpMode {
 
 		while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= rotations*1400) {
 
-			op.my_dcmotor_left.setPower(-1);
-			op.my_dcmotor_right.setPower(1);
+			op.my_dcmotor_left.setPower(-0.5);
+			op.my_dcmotor_right.setPower(-0.5);
 			telemetry.addData("Position ", "is: " + Math.abs(op.my_dcmotor_left.getCurrentPosition()));
+
 
 		}
 		stop(op.my_dcmotor_left, op.my_dcmotor_right);
@@ -84,16 +93,25 @@ public class autonomous extends LinearOpMode {
 		float encoderval = fullturnvalue*(degrees/360);
 		double power;
 
-		if (direction == "RIGHT") power = -1.0;
+		if (direction.equals("RIGHT")) {
+
+			while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
+				op.my_dcmotor_left.setPower(1);
+				op.my_dcmotor_right.setPower(-1);
+				telemetry.addData("Position ","is: "+Math.abs(op.my_dcmotor_left.getCurrentPosition()));
+
+			}
+
+		}
+
 		else {
-			power = 1.0;
+			while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
+				op.my_dcmotor_left.setPower(-1);
+				op.my_dcmotor_right.setPower(1);
+
+			}
 		}
 
-		while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
-			op.my_dcmotor_left.setPower(power);
-			op.my_dcmotor_right.setPower(power);
-
-		}
 		stop(op.my_dcmotor_left,op.my_dcmotor_right);
 
 	}
