@@ -58,16 +58,21 @@ public class autonomous extends LinearOpMode {
 		op.mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
 		op.my_dcmotor_left = hardwareMap.dcMotor.get("left_drive");
 		op.my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
-		int startPos = Math.abs(op.my_dcmotor_left.getCurrentPosition());
+		op.Robot_servo_Controller = hardwareMap.servoController.get("servo_controller");
+		op.robot_front_left = hardwareMap.servo.get("frontleftservo");
+		op.robot_front_right = hardwareMap.servo.get("frontrightservo");
+
 		waitForStart();
-		//procedures for autonomous
-		forward(0.9, startPos);
-		sleep(3000);
-		turn(65, op.my_dcmotor_left.getCurrentPosition(), "LEFT");
-		sleep(5000);
-		forward(3.3, op.my_dcmotor_left.getCurrentPosition());
-		sleep(3000);
-		turn(90,startPos,"LEFT");
+		//procedures for autonomous - note: as full turn encoder values aren't accurate, degree measures aren't accurate either.
+		// Therefore, view the degree argument of the turn function as simply a factor, not an actual degree. We can fix this later.
+		forward(0.9, op.my_dcmotor_left.getCurrentPosition());
+		turn(70, op.my_dcmotor_left.getCurrentPosition(), "LEFT");
+		forward(5.2, op.my_dcmotor_left.getCurrentPosition());
+		turn(90, op.my_dcmotor_left.getCurrentPosition(), "LEFT");
+		forward(2.0, op.my_dcmotor_left.getCurrentPosition());
+		sleep(1000);
+		op.robot_front_right.setPosition(0.4);
+
 		//end procedures for autonomous
 
 

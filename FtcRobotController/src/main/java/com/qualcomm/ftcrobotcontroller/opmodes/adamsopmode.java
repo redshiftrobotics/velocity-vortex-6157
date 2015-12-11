@@ -40,7 +40,7 @@ public class adamsopmode extends OpMode {
 	//Controllers
 	protected DcMotorController mydcmotorcontroller;
 
-	//protected ServoController Robot_servo_Controller;
+	protected ServoController Robot_servo_Controller;
 	//protected DcMotorController myarmcontroller;
 	//Motors
 	protected DcMotor my_dcmotor_left;
@@ -49,9 +49,9 @@ public class adamsopmode extends OpMode {
 
 	//Servos
 
-	/*protected Servo robot_front_left;
+	protected Servo robot_front_left;
 	protected Servo robot_front_right;
-	protected Servo front_arm_rotation;*/
+	//protected Servo front_arm_rotation;
 
 
 

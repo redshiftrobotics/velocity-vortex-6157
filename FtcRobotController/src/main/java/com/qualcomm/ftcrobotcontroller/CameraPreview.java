@@ -13,14 +13,17 @@ import java.io.IOException;
  */
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 	private SurfaceHolder mHolder;
+    SurfaceView view;
 	private android.hardware.Camera mCamera;
 	public CameraPreview(Context context, android.hardware.Camera camera) {
 
 		super(context);
 		mCamera = camera;
-		mHolder = getHolder();
+        view = new SurfaceView(context);
+		mHolder = view.getHolder();
 		mHolder.addCallback(this);
 		mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
 
 	}
 

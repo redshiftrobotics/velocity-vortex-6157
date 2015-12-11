@@ -46,11 +46,11 @@ public class Teliop extends OpMode {
 	private DcMotor dcmotor_arm;
 
 	//Servos
-	//private Servo arm_servo;
+	private Servo arm_servo;
 	private Servo robot_front_left;
 	private Servo robot_front_right;
+	private Servo front_arm_rotation;
 
-	//private Servo front_arm_rotation;
 
 	public double front_right_servo_position = 0;
 	public double front_left_servo_position = 0;
@@ -65,9 +65,9 @@ public class Teliop extends OpMode {
 		runtime.reset();
 
 		mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
-		//myarmcontroller = hardwareMap.dcMotorController.get("arm_controller");
+		myarmcontroller = hardwareMap.dcMotorController.get("arm_controller");
 		Robot_servo_Controller = hardwareMap.servoController.get("servo_controller");
-		//dcmotor_arm = hardwareMap.dcMotor.get("arm_motor");
+		dcmotor_arm = hardwareMap.dcMotor.get("arm_motor");
 		my_dcmotor_left = hardwareMap.dcMotor.get("left_drive");
 		my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
 		robot_front_left = hardwareMap.servo.get("frontleftservo");
@@ -87,10 +87,10 @@ public class Teliop extends OpMode {
 		telemetry.addData("2 Status", "running for " + runtime.toString());
 		my_dcmotor_left.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
 		my_dcmotor_right.setPower(Range.clip((gamepad1.right_stick_y), -1, 1));
-		//my_dcmotor_arm.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
-		//front_arm_rotation.setPosition(Range.clip((gamepad2.right_stick_x), 0.0, 1.0));
-		robot_front_right.setPosition(Range.clip((gamepad1.right_stick_x), 0.0, 1.0));
-		robot_front_left.setPosition(Range.clip((gamepad1.left_stick_x * -1), 0.0, 1.0));
+		dcmotor_arm.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
+		//front_arm_rotation.setPosition(Range.clip((gamepad2.right_stick_y), 0.0, 1.0));
+		robot_front_right.setPosition(Range.clip((gamepad2.right_stick_x), 0.0, 1.0));
+		robot_front_left.setPosition(Range.clip((gamepad2.left_stick_x), 1.0, 0.0));
 
 
 	/*if (gamepad1.right_bumper){

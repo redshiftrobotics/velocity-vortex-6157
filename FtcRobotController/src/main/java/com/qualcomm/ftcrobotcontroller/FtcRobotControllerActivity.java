@@ -49,6 +49,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -86,8 +87,10 @@ public class FtcRobotControllerActivity extends Activity {
 	//////////////////////////////////////////////////////
 	//                      MODDED                      //
 	//////////////////////////////////////////////////////
-	private CameraPreview cp = new CameraPreview(this, camera);
-	private Camera camera = getCameraInstance();
+private Camera camera;
+	private CameraPreview cp;
+
+
 	private Camera.PictureCallback pictureCallback = new Camera.PictureCallback(){
 
 		@Override
@@ -140,6 +143,8 @@ public class FtcRobotControllerActivity extends Activity {
 		c = Camera.open();
 		return c;
 	}
+
+
 	////////////////////////////////////////////////////
 	//                   END MODDED                   //
 	///////////////////////////////////////////////////
@@ -235,7 +240,12 @@ public class FtcRobotControllerActivity extends Activity {
 	  });
 thread.start();
 
-	  //FrameLayout view = (FrameLayout) findViewById(R.Id. putthinghere)
+	  camera = getCameraInstance();
+	  cp = new CameraPreview(this, camera);
+	  FrameLayout view = (FrameLayout) findViewById(R.id.camPrev);
+      view.addView(cp);
+
+
 
 
 	  /////////////////////////////////////////////
