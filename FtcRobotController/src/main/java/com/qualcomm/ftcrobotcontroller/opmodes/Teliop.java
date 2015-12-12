@@ -29,7 +29,7 @@ public class Teliop extends OpMode {
 	//constructor
 	public Teliop() {
 
-
+		telemetry.addData("Status:","Teliop about to start");
 	}
 
 	private String startDate;
@@ -83,7 +83,8 @@ public class Teliop extends OpMode {
      */
 	@Override
 	public void loop() {
-		telemetry.addData("1 Start", "NullOp started at " + startDate);
+
+		telemetry.addData("1 Start", "Teleop started at " + startDate);
 		telemetry.addData("2 Status", "running for " + runtime.toString());
 		my_dcmotor_left.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
 		my_dcmotor_right.setPower(Range.clip((gamepad1.right_stick_y), -1, 1));

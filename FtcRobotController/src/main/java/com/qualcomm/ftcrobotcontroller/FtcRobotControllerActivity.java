@@ -87,7 +87,7 @@ public class FtcRobotControllerActivity extends Activity {
 	//////////////////////////////////////////////////////
 	//                      MODDED                      //
 	//////////////////////////////////////////////////////
-private Camera camera;
+	private Camera camera ;
 	private CameraPreview cp;
 
 
@@ -95,7 +95,6 @@ private Camera camera;
 
 		@Override
 		public void onPictureTaken(byte[] data, Camera camera) {
-			camera.startPreview();
 
 			File myfile = getOutputMediaFile();
 
@@ -139,9 +138,17 @@ private Camera camera;
 	}
 
 	public static Camera getCameraInstance (){
-		Camera c = null;
-		c = Camera.open();
-		return c;
+		Camera c;
+		c = Camera.open(0);
+
+		if (c==null){
+			Log.d("Camera status: ","can't get camera");
+			return c;
+		}
+		else {
+			return c;
+		}
+
 	}
 
 
@@ -240,10 +247,14 @@ private Camera camera;
 	  });
 thread.start();
 
-	  camera = getCameraInstance();
+
+
+		camera = getCameraInstance();
 	  cp = new CameraPreview(this, camera);
+	  camera.startPreview();
 	  FrameLayout view = (FrameLayout) findViewById(R.id.camPrev);
       view.addView(cp);
+
 
 
 
@@ -388,7 +399,7 @@ thread.start();
 
   @Override
   public void onConfigurationChanged(Configuration newConfig) {
-    super.onConfigurationChanged(newConfig);
+	  super.onConfigurationChanged(newConfig);
     // don't destroy assets on screen rotation
   }
 

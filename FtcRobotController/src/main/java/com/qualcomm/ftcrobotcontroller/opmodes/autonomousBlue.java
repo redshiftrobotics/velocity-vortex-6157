@@ -43,13 +43,13 @@ import com.qualcomm.ftcrobotcontroller.Event;
  * This class simply contains the procedures for autonomous mode. For actual method definitions, see com/qualcomm/ftcrobotcontroller/opmodes/Robot.java.
  */
 
-public class autonomous extends LinearOpMode {
+public class autonomousBlue extends LinearOpMode {
 
 	//change this based on encoder values for one full turn. To find this value, run viewEncoderPosition on robot until it has turned as close to 360 degrees as possible, then view /sdcard/Downloads/output.txt
 	private int fullturnvalue = 3278;
 	public double pos;
 	public adamsopmode op;
-	public autonomous() {
+	public autonomousBlue() {
 		//create a new adamsopmode object in order to access base motors
 		this.op = new adamsopmode();
 	}

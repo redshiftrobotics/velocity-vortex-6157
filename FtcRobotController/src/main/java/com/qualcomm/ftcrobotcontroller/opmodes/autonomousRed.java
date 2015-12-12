@@ -43,14 +43,15 @@ import com.qualcomm.ftcrobotcontroller.Event;
  * This class simply contains the procedures for autonomous mode. For actual method definitions, see com/qualcomm/ftcrobotcontroller/opmodes/Robot.java.
  */
 
-public class autonomous extends LinearOpMode {
+public class autonomousRed extends LinearOpMode {
 
 	//change this based on encoder values for one full turn. To find this value, run viewEncoderPosition on robot until it has turned as close to 360 degrees as possible, then view /sdcard/Downloads/output.txt
 	private int fullturnvalue = 3278;
+	private double tempturnval;
 	public double pos;
 	public adamsopmode op;
-	public autonomous() {
-		//create a new adamsopmode object in order to access base motors
+	public autonomousRed() {
+		//create a new adamsopmode object in order to access base motors/servos
 		this.op = new adamsopmode();
 	}
 
@@ -66,14 +67,14 @@ public class autonomous extends LinearOpMode {
 		waitForStart();
 		//procedures for autonomous - note: as full turn encoder values aren't accurate, degree measures aren't accurate either.
 		// Therefore, view the degree argument of the turn function as simply a factor, not an actual degree. We can fix this later.
-		forward(0.9, op.my_dcmotor_left.getCurrentPosition());
-		turn(70, op.my_dcmotor_left.getCurrentPosition(), "RIGHT");
-		forward(5.7, op.my_dcmotor_left.getCurrentPosition());
-		turn(90, op.my_dcmotor_left.getCurrentPosition(), "RIGHT");
-		forward(1.2, op.my_dcmotor_left.getCurrentPosition());
+		forward(0.9, op.my_dcmotor_right.getCurrentPosition());
+		turn(70, op.my_dcmotor_right.getCurrentPosition(), "LEFT");
+		forward(5.7, op.my_dcmotor_right.getCurrentPosition());
+		turn(90, op.my_dcmotor_right.getCurrentPosition(), "LEFT");
+		forward(1.2, op.my_dcmotor_right.getCurrentPosition());
 		//increment servo position more slowly
-		while (op.robot_front_right.getPosition() < 0.5){
-			op.robot_front_right.setPosition(pos);
+		while (op.robot_front_left.getPosition() < 0.5){
+			op.robot_front_left.setPosition(pos);
 			pos += 0.05;
 			sleep(10);
 		}
@@ -101,26 +102,27 @@ public class autonomous extends LinearOpMode {
 
 
 	public void turn(float degrees, int startPos, String direction){
+		//int adjustedPos = startPos;
 		float encoderval = fullturnvalue*(degrees/360);
-		double power;
 
 		if (direction.equals("LEFT")) {
-
-			while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
+			while(Math.abs(op.my_dcmotor_right.getCurrentPosition()) - startPos <= encoderval) {
 				op.my_dcmotor_left.setPower(1);
 				op.my_dcmotor_right.setPower(-1);
-				telemetry.addData("Position ","is: "+Math.abs(op.my_dcmotor_left.getCurrentPosition()));
-
 			}
 
 		}
 
-		else {
+		else if (direction.equals("RIGHT")){
 			while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
+
 				op.my_dcmotor_left.setPower(-1);
 				op.my_dcmotor_right.setPower(1);
 
 			}
+		}
+		else {
+			stop(op.my_dcmotor_left,op.my_dcmotor_right);
 		}
 
 		stop(op.my_dcmotor_left,op.my_dcmotor_right);
