@@ -47,6 +47,7 @@ public class autonomous extends LinearOpMode {
 
 	//change this based on encoder values for one full turn. To find this value, run viewEncoderPosition on robot until it has turned as close to 360 degrees as possible, then view /sdcard/Downloads/output.txt
 	private int fullturnvalue = 3278;
+	public double pos;
 	public adamsopmode op;
 	public autonomous() {
 		//create a new adamsopmode object in order to access base motors
@@ -66,12 +67,16 @@ public class autonomous extends LinearOpMode {
 		//procedures for autonomous - note: as full turn encoder values aren't accurate, degree measures aren't accurate either.
 		// Therefore, view the degree argument of the turn function as simply a factor, not an actual degree. We can fix this later.
 		forward(0.9, op.my_dcmotor_left.getCurrentPosition());
-		turn(70, op.my_dcmotor_left.getCurrentPosition(), "LEFT");
-		forward(5.2, op.my_dcmotor_left.getCurrentPosition());
-		turn(90, op.my_dcmotor_left.getCurrentPosition(), "LEFT");
-		forward(2.0, op.my_dcmotor_left.getCurrentPosition());
-		sleep(1000);
-		op.robot_front_right.setPosition(0.4);
+		turn(70, op.my_dcmotor_left.getCurrentPosition(), "RIGHT");
+		forward(5.7, op.my_dcmotor_left.getCurrentPosition());
+		turn(90, op.my_dcmotor_left.getCurrentPosition(), "RIGHT");
+		forward(1.2, op.my_dcmotor_left.getCurrentPosition());
+
+		while (op.robot_front_right.getPosition() < 0.5){
+			op.robot_front_right.setPosition(pos);
+			pos += 0.05;
+			sleep(10);
+		}
 
 		//end procedures for autonomous
 
@@ -98,7 +103,7 @@ public class autonomous extends LinearOpMode {
 		float encoderval = fullturnvalue*(degrees/360);
 		double power;
 
-		if (direction.equals("RIGHT")) {
+		if (direction.equals("LEFT")) {
 
 			while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
 				op.my_dcmotor_left.setPower(1);
