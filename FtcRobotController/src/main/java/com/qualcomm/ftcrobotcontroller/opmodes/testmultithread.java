@@ -31,9 +31,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.qualcomm.ftcrobotcontroller.Event;
@@ -47,10 +56,23 @@ public class testmultithread extends OpMode {
 
 	private String startDate;
 	private ElapsedTime runtime = new ElapsedTime();
+	private String picPath;
 
 	@Override
 	public void init() {
-		Event.sendEvent();
+		Event.sendEventGetPath();
+		picPath = Event.sendEventGetPath();
+
+
+
+		if (picPath.equals("ERROR")){
+			Log.d("PATH:","Sorry Not Working");
+		} else{
+			Log.d("PATH","Ready to Process");
+		}
+
+
+
 	}
 
 	/*
@@ -73,4 +95,5 @@ public class testmultithread extends OpMode {
 		telemetry.addData("1 Start", "NullOp started at " + startDate);
 		telemetry.addData("2 Status", "running for " + runtime.toString());
 	}
+
 }

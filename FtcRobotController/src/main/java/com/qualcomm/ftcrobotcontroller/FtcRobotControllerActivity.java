@@ -44,6 +44,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -72,14 +73,17 @@ import com.qualcomm.robotcore.util.Dimmer;
 import com.qualcomm.robotcore.util.ImmersiveMode;
 import com.qualcomm.robotcore.util.RobotLog;
 import com.qualcomm.robotcore.wifi.WifiDirectAssistant;
-
+import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.io.File;
+import java.net.Socket;
+
 
 
 public class FtcRobotControllerActivity extends Activity {
@@ -89,12 +93,14 @@ public class FtcRobotControllerActivity extends Activity {
 	//////////////////////////////////////////////////////
 	private Camera camera ;
 	private CameraPreview cp;
+	public String picturePath;
+	public Socket client;
 
 
 	private Camera.PictureCallback pictureCallback = new Camera.PictureCallback(){
 
 		@Override
-		public void onPictureTaken(byte[] data, Camera camera) {
+		public void onPictureTaken (byte[] data, Camera camera) {
 
 			File myfile = getOutputMediaFile();
 
@@ -102,14 +108,23 @@ public class FtcRobotControllerActivity extends Activity {
 				return;
 			}
 			try {
+
 				FileOutputStream fos = new FileOutputStream(myfile);
 				fos.write(data);
 				fos.close();
+				picturePath = myfile.getPath();
+				DataInputStream dis = new DataInputStream(client.getInputStream());
+				PrintWriter pw = new PrintWriter(client.getOutputStream(),true);
+				pw.println(picturePath);
+				client.close();
+
+
 			}catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}catch (IOException e){
 				e.printStackTrace();
 			}
+
 		}
 	};
 
@@ -139,9 +154,9 @@ public class FtcRobotControllerActivity extends Activity {
 
 	public static Camera getCameraInstance (){
 		Camera c;
-		c = Camera.open(0);
+		c = Camera.open();
 
-		if (c==null){
+		if (c == null){
 			Log.d("Camera status: ","can't get camera");
 			return c;
 		}
@@ -222,23 +237,32 @@ public class FtcRobotControllerActivity extends Activity {
 	  ////////////////////////////////////////////////
 	  //				MODDED                     //
 	  ///////////////////////////////////////////////
+	  camera = getCameraInstance();
+	  camera.setDisplayOrientation(90);
+	  cp = new CameraPreview(this, camera);
+
+
+	  FrameLayout view = (FrameLayout) findViewById(R.id.camPrev);
+	  view.addView(cp);
+
 	  final Thread thread = new Thread(new Runnable() {
 		  @Override
 		  public void run() {
 			  try {
-				  ServerSocket ss = new ServerSocket(6157,50);
-				  ss.accept();
+				 ServerSocket ss = new ServerSocket(6157, 50);
+				  client = ss.accept();
 				  camera.takePicture(null, null, pictureCallback);
-				  ss.accept();
+				  client = ss.accept();
 				  camera.takePicture(null, null, pictureCallback);
-				  ss.accept();
+				 client =  ss.accept();
 				  camera.takePicture(null, null, pictureCallback);
-				  ss.accept();
+				  client =  ss.accept();
 				  camera.takePicture(null, null, pictureCallback);
-				  ss.accept();
+				  client =  ss.accept();
 				  camera.takePicture(null, null, pictureCallback);
-				  ss.accept();
+				  client =  ss.accept();
 				  camera.takePicture(null, null, pictureCallback);
+				  Log.d("Sorry, ","No more Pictures");
 
 			  } catch (IOException e) {
 				  e.printStackTrace();
@@ -246,18 +270,6 @@ public class FtcRobotControllerActivity extends Activity {
 		  }
 	  });
 thread.start();
-
-
-
-		camera = getCameraInstance();
-	  cp = new CameraPreview(this, camera);
-	  camera.startPreview();
-	  FrameLayout view = (FrameLayout) findViewById(R.id.camPrev);
-      view.addView(cp);
-
-
-
-
 
 	  /////////////////////////////////////////////
 	  //            END MODDED                   //

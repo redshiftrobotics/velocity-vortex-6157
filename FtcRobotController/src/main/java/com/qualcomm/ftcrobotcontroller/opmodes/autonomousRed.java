@@ -39,6 +39,8 @@ import com.qualcomm.robotcore.hardware.IrSeekerSensor;
 import com.qualcomm.ftcrobotcontroller.opmodes.adamsopmode;
 import com.qualcomm.ftcrobotcontroller.Event;
 
+
+
 /**
  * This class simply contains the procedures for autonomous mode. For actual method definitions, see com/qualcomm/ftcrobotcontroller/opmodes/Robot.java.
  */
@@ -63,20 +65,25 @@ public class autonomousRed extends LinearOpMode {
 		op.Robot_servo_Controller = hardwareMap.servoController.get("servo_controller");
 		op.robot_front_left = hardwareMap.servo.get("frontleftservo");
 		op.robot_front_right = hardwareMap.servo.get("frontrightservo");
-
+		op.my_dcmotor_left.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+		op.my_dcmotor_right.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
 		waitForStart();
 		//procedures for autonomous - note: as full turn encoder values aren't accurate, degree measures aren't accurate either.
 		// Therefore, view the degree argument of the turn function as simply a factor, not an actual degree. We can fix this later.
-		forward(0.9, op.my_dcmotor_right.getCurrentPosition());
-		turn(70, op.my_dcmotor_right.getCurrentPosition(), "LEFT");
-		forward(5.7, op.my_dcmotor_right.getCurrentPosition());
+
+		forward(0.9, op.my_dcmotor_left.getCurrentPosition());
+		turn(70, op.my_dcmotor_left.getCurrentPosition(), "LEFT");
+		forward(5.7, op.my_dcmotor_left.getCurrentPosition());
 		turn(90, op.my_dcmotor_right.getCurrentPosition(), "LEFT");
-		forward(1.2, op.my_dcmotor_right.getCurrentPosition());
+		forward(1.2, op.my_dcmotor_left.getCurrentPosition());
+
 		//increment servo position more slowly
+
 		while (op.robot_front_left.getPosition() < 0.5){
 			op.robot_front_left.setPosition(pos);
 			pos += 0.05;
 			sleep(10);
+
 		}
 
 

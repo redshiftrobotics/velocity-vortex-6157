@@ -4,28 +4,56 @@ package com.qualcomm.ftcrobotcontroller;
  * Created by adam on 12/2/15.
  */
 
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class Event {
-	private static InetAddress addr;
-	private static int port = 6157;
-	static {
+
+
+	public Event() {
+
 		try {
-			addr = InetAddress.getLocalHost();
+			this.addr = InetAddress.getLocalHost();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
+			;
 		}
 	}
-	public static void sendEvent () {
-		try {
-			Socket socket = new Socket(addr, port);
-		}catch (IOException e){
-			e.printStackTrace();
+
+	private static int port = 6157;
+	private static DataInputStream dataInputStream;
+	private static String str;
+	private static InetAddress addr;
+
+
+	public static String sendEventGetPath() {
+
+		if (addr != null) {
+			try {
+
+				Socket ioSoc = new Socket(addr, port);
+				ioSoc.wait(1000);
+				BufferedReader i = new BufferedReader(new InputStreamReader(ioSoc.getInputStream()));
+				str = i.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+
+		} else {
+			return "ERROR";
 		}
+
+		return str;
 	}
+
+
 }
