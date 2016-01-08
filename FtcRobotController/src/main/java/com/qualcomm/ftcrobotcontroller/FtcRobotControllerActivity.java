@@ -93,32 +93,26 @@ public class FtcRobotControllerActivity extends Activity {
 	//////////////////////////////////////////////////////
 	private Camera camera ;
 	private CameraPreview cp;
-	public String picturePath;
+
 	public Socket client;
 
 
 	private Camera.PictureCallback pictureCallback = new Camera.PictureCallback(){
-
 		@Override
 		public void onPictureTaken (byte[] data, Camera camera) {
-
 			File myfile = getOutputMediaFile();
-
 			if (myfile == null){
 				return;
 			}
 			try {
-
 				FileOutputStream fos = new FileOutputStream(myfile);
 				fos.write(data);
+				Log.d("PicWrite","Worked");
 				fos.close();
-				picturePath = myfile.getPath();
-				DataInputStream dis = new DataInputStream(client.getInputStream());
+				String picturePath = myfile.getPath();
 				PrintWriter pw = new PrintWriter(client.getOutputStream(),true);
 				pw.println(picturePath);
 				client.close();
-
-
 			}catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}catch (IOException e){
@@ -136,7 +130,6 @@ public class FtcRobotControllerActivity extends Activity {
 				Environment.DIRECTORY_PICTURES), "processing");
 		// This location works best if you want the created images to be shared
 		// between applications and persist after your app has been uninstalled.
-
 		// Create the storage directory if it does not exist
 		if (! mediaStorageDir.exists()){
 			if (! mediaStorageDir.mkdirs()){
@@ -250,7 +243,8 @@ public class FtcRobotControllerActivity extends Activity {
 		  public void run() {
 			  try {
 				 ServerSocket ss = new ServerSocket(6157, 50);
-				  client = ss.accept();
+				   client = ss.accept();
+				  Log.d("ThreadCom", "Worked");
 				  camera.takePicture(null, null, pictureCallback);
 				  client = ss.accept();
 				  camera.takePicture(null, null, pictureCallback);

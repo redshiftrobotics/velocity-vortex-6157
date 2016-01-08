@@ -37,7 +37,7 @@ public class TeliopNew extends OpMode {
 
 	//Controllers
 	private DcMotorController dcmotorcontroller;
-	private ServoController servoController;
+	//private ServoController servoController;
 	private DcMotorController armcontroller;
 	private DcMotorController wheelcontroller;
 	//Motors
@@ -69,7 +69,7 @@ public class TeliopNew extends OpMode {
 
 		dcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
 		armcontroller = hardwareMap.dcMotorController.get("arm_controller");
-		servoController = hardwareMap.servoController.get("servo_controller");
+		//servoController = hardwareMap.servoController.get("servo_controller");
 		wheelcontroller = hardwareMap.dcMotorController.get("wheel_controller");
 
 		dcmotorLeft = hardwareMap.dcMotor.get("left_drive");
@@ -97,7 +97,7 @@ public class TeliopNew extends OpMode {
 		telemetry.addData("1 Start", "Teleop started at " + startDate);
 		telemetry.addData("2 Status", "running for " + runtime.toString());
 		dcmotorLeft.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
-		dcmotorRight.setPower(Range.clip((gamepad1.right_stick_y), -1, 1));
+		dcmotorRight.setPower(Range.clip((-gamepad1.right_stick_y), -1, 1));
 		dcmotorArmLift.setPower(Range.clip((gamepad2.left_stick_y), -1, 1));
 		dcmotorArmPull.setPower(Range.clip((gamepad2.left_stick_x), -1, 1));
 		dcmotorWheelLift.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));

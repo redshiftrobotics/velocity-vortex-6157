@@ -46,6 +46,7 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.qualcomm.ftcrobotcontroller.Event;
+import com.qualcomm.ftcrobotcontroller.ImgProc;
 
 /**
  * TeleOp Mode
@@ -60,19 +61,23 @@ public class testmultithread extends OpMode {
 
 	@Override
 	public void init() {
-		Event.sendEventGetPath();
+
 		picPath = Event.sendEventGetPath();
-
-
-
-		if (picPath.equals("ERROR")){
+		if (picPath.equals("ERROR") || picPath.isEmpty()){
 			Log.d("PATH:","Sorry Not Working");
 		} else{
-			Log.d("PATH","Ready to Process");
+			Log.d("PATH","Ready to Process" + picPath);
 		}
 
-
-
+		if (ImgProc.isLeft(picPath)){
+			Log.d("ImageProcessing", "Worked, More blue on left");
+		}
+		else if (ImgProc.isRight(picPath)){
+			Log.d("ImageProcessing", "Worked, More blue on right");
+		}
+		else {
+			Log.d("ImageProcessing","Something's Wrong...");
+		}
 	}
 
 	/*

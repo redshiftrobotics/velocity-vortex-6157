@@ -15,45 +15,31 @@ import java.net.UnknownHostException;
 
 public class Event {
 
-
-	public Event() {
-
-		try {
-			this.addr = InetAddress.getLocalHost();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			;
-		}
-	}
-
 	private static int port = 6157;
-	private static DataInputStream dataInputStream;
 	private static String str;
-	private static InetAddress addr;
-
-
+	public static InetAddress addr;
 	public static String sendEventGetPath() {
 
+		try {
+			addr = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 		if (addr != null) {
 			try {
 
 				Socket ioSoc = new Socket(addr, port);
-				ioSoc.wait(1000);
 				BufferedReader i = new BufferedReader(new InputStreamReader(ioSoc.getInputStream()));
 				str = i.readLine();
+				while (str.isEmpty()) {
+					str = i.readLine();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
-
-
+			return str;
 		} else {
-			return "ERROR";
+			return "ERROR, Address Null";
 		}
-
-		return str;
 	}
-
-
 }
