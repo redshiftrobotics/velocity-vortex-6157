@@ -37,7 +37,7 @@ public class TeliopNew extends OpMode {
 
 	//Controllers
 	private DcMotorController dcmotorcontroller;
-	//private ServoController servoController;
+	private ServoController servoController;
 	private DcMotorController armcontroller;
 	private DcMotorController wheelcontroller;
 	//Motors
@@ -49,10 +49,8 @@ public class TeliopNew extends OpMode {
 	private DcMotor dcmotorWheelLift;
 
 	//Servos
-//	private Servo arm_servo;
-//	private Servo robot_front_left;
-//	private Servo robot_front_right;
-//	private Servo front_arm_rotation;
+	private Servo robot_left;
+	private Servo robot_right;
 
 
 //	public double front_right_servo_position = 0;
@@ -69,7 +67,7 @@ public class TeliopNew extends OpMode {
 
 		dcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
 		armcontroller = hardwareMap.dcMotorController.get("arm_controller");
-		//servoController = hardwareMap.servoController.get("servo_controller");
+		servoController = hardwareMap.servoController.get("servo_controller");
 		wheelcontroller = hardwareMap.dcMotorController.get("wheel_controller");
 
 		dcmotorLeft = hardwareMap.dcMotor.get("left_drive");
@@ -80,9 +78,8 @@ public class TeliopNew extends OpMode {
 		dcmotorWheelWheel = hardwareMap.dcMotor.get("wheel_wheel");
 
 
-//		robot_front_left = hardwareMap.servo.get("frontleftservo");
-//		robot_front_right = hardwareMap.servo.get("frontrightservo");
-//		//front_arm_rotation = hardwareMap.servo.get("frontarmservo");
+		robot_left = hardwareMap.servo.get("leftservo");
+		robot_right = hardwareMap.servo.get("rightservo");
 
 
 	}
@@ -99,27 +96,43 @@ public class TeliopNew extends OpMode {
 		dcmotorLeft.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
 		dcmotorRight.setPower(Range.clip((-gamepad1.right_stick_y), -1, 1));
 		dcmotorArmLift.setPower(Range.clip((gamepad2.left_stick_y), -1, 1));
-		dcmotorArmPull.setPower(Range.clip((gamepad2.left_stick_x), -1, 1));
-		dcmotorWheelLift.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
-		dcmotorWheelWheel.setPower(Range.clip((gamepad2.right_stick_x), -1, 1));
+		dcmotorWheelWheel.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
 
 
-	/*if (gamepad1.right_bumper){
-				telemetry.addData("2", "GamePad.Right_bumper active");
-				robot_front_right.setPosition(1.0);
-		}
-		else    {
-			telemetry.addData("2", "GamePad.Right_bumper deactive");
-			robot_front_right.setPosition(0.0);
-		}
-		if (gamepad1.left_bumper){
-			telemetry.addData("2", "GamePad.Left_bumper active");
-			robot_front_left.setPosition(1.0);
+		if (gamepad1.left_bumper) {
+			robot_left.setPosition(1);
 		}
 		else {
-			telemetry.addData("2", "GamePad.Left_bumper deactive");
-			robot_front_left.setPosition(0.0);
-			}*/
+				robot_left.setPosition(0);
+		}
+		if (gamepad1.right_bumper) {
+			robot_right.setPosition(1);
+		}
+		else {
+				robot_right.setPosition(0);
+		}
+
+
+		if (gamepad2.right_bumper){
+				dcmotorWheelLift.setPower(1);
+		}
+		else if(gamepad2.right_trigger > .5)   {
+				dcmotorWheelLift.setPower(-1);
+		}
+		else {
+			dcmotorWheelLift.setPower(0);
+		}
+		if (gamepad2.left_bumper){
+			dcmotorArmPull.setPower(1);
+		}
+		else if(gamepad2.left_trigger > .5)   {
+			dcmotorArmPull.setPower(-1);
+		}
+		else {
+			dcmotorArmPull.setPower(0);
+		}
+
+
 
 		/*if (gamepad1.right_bumper && front_right_servo_position < 1.0) {
 			robot_front_right.setPosition(front_right_servo_position);
