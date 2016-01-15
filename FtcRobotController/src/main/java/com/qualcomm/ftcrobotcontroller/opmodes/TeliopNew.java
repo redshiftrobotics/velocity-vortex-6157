@@ -95,21 +95,21 @@ public class TeliopNew extends OpMode {
 		telemetry.addData("2 Status", "running for " + runtime.toString());
 		dcmotorLeft.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
 		dcmotorRight.setPower(Range.clip((-gamepad1.right_stick_y), -1, 1));
-		dcmotorArmLift.setPower(Range.clip((gamepad2.left_stick_y), -1, 1));
+		dcmotorArmLift.setPower(Range.clip((-  gamepad2.left_stick_y), -1, 1));
 		dcmotorWheelWheel.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
 
 
 		if (gamepad1.left_bumper) {
-			robot_left.setPosition(1);
+			robot_left.setPosition(0.5);
 		}
 		else {
-				robot_left.setPosition(0);
+				robot_left.setPosition(1);
 		}
 		if (gamepad1.right_bumper) {
-			robot_right.setPosition(1);
+			robot_right.setPosition(0.5);
 		}
 		else {
-				robot_right.setPosition(0);
+				robot_right.setPosition(1);
 		}
 
 

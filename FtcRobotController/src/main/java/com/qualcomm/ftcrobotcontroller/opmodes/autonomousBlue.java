@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.hardware.IrSeekerSensor;
 //import com.qualcomm.ftcrobotcontroller.opmodes.Robot;
 import com.qualcomm.ftcrobotcontroller.opmodes.adamsopmode;
 import com.qualcomm.ftcrobotcontroller.Event;
+import com.qualcomm.robotcore.hardware.ServoController;
 
 /**
  * This class simply contains the procedures for autonomous mode. For actual method definitions, see com/qualcomm/ftcrobotcontroller/opmodes/Robot.java.
@@ -49,34 +50,41 @@ public class autonomousBlue extends LinearOpMode {
 	private int fullturnvalue = 3278;
 	public double pos;
 	public adamsopmode op;
+	private DcMotorController dcmotorcontroller;
+	private DcMotorController armcontroller;
+	private ServoController servoController;
+	private DcMotorController wheelcontroller;
+	private DcMotor dcmotorLeft;
+	private DcMotor dcmotorRight;
+	private DcMotor dcmotorArmLift;
+	private DcMotor dcmotorArmPull;
+	private DcMotor dcmotorWheelLift;
+	private DcMotor dcmotorWheelWheel;
 	public autonomousBlue() {
 		//create a new adamsopmode object in order to access base motors
-		this.op = new adamsopmode();
 	}
 
 	@Override public void runOpMode() throws InterruptedException {
 
-		op.mydcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
-		op.my_dcmotor_left = hardwareMap.dcMotor.get("left_drive");
-		op.my_dcmotor_right = hardwareMap.dcMotor.get("right_drive");
-		op.Robot_servo_Controller = hardwareMap.servoController.get("servo_controller");
-		op.robot_front_left = hardwareMap.servo.get("frontleftservo");
-		op.robot_front_right = hardwareMap.servo.get("frontrightservo");
+		dcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
+		 armcontroller = hardwareMap.dcMotorController.get("arm_controller");
+		servoController  = hardwareMap.servoController.get("servo_controller");
+		wheelcontroller = hardwareMap.dcMotorController.get("wheel_controller");
 
+		dcmotorLeft = hardwareMap.dcMotor.get("left_drive");
+		dcmotorRight = hardwareMap.dcMotor.get("right_drive");
+		dcmotorArmLift = hardwareMap.dcMotor.get("arm_lift");
+		dcmotorArmPull = hardwareMap.dcMotor.get("arm_pull");
+		dcmotorWheelLift = hardwareMap.dcMotor.get("wheel_lift");
+		dcmotorWheelWheel = hardwareMap.dcMotor.get("wheel_wheel");
 		waitForStart();
 		//procedures for autonomous - note: as full turn encoder values aren't accurate, degree measures aren't accurate either.
 		// Therefore, view the degree argument of the turn function as simply a factor, not an actual degree. We can fix this later.
-		forward(0.9, op.my_dcmotor_left.getCurrentPosition());
-		turn(70, op.my_dcmotor_left.getCurrentPosition(), "RIGHT");
-		forward(5.7, op.my_dcmotor_left.getCurrentPosition());
-		turn(90, op.my_dcmotor_left.getCurrentPosition(), "RIGHT");
-		forward(1.2, op.my_dcmotor_left.getCurrentPosition());
-		//increment servo position more slowly
-		while (op.robot_front_right.getPosition() < 0.5){
-			op.robot_front_right.setPosition(pos);
-			pos += 0.05;
-			sleep(10);
-		}
+		forward(0.9, dcmotorLeft.getCurrentPosition());
+		turn(70, dcmotorLeft.getCurrentPosition(), "RIGHT");
+		forward(5.7, dcmotorLeft.getCurrentPosition());
+		turn(90, dcmotorLeft.getCurrentPosition(), "RIGHT");
+		forward(1.2, dcmotorLeft.getCurrentPosition());
 
 
 		//end procedures for autonomous
@@ -87,50 +95,46 @@ public class autonomousBlue extends LinearOpMode {
 
 	public void forward (double rotations, double startPos) {
 
-		while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= rotations*1400) {
+		while(Math.abs(dcmotorLeft.getCurrentPosition()) - startPos <= rotations*1400) {
 
-			op.my_dcmotor_left.setPower(-0.5);
-			op.my_dcmotor_right.setPower(-0.5);
+			dcmotorLeft.setPower(1.0);
+			dcmotorRight.setPower(-1.0);
 			telemetry.addData("Position ", "is: " + Math.abs(op.my_dcmotor_left.getCurrentPosition()));
 
-
 		}
-		stop(op.my_dcmotor_left, op.my_dcmotor_right);
+		stop(dcmotorLeft, dcmotorRight);
 	}
 
 
 
 	public void turn(float degrees, int startPos, String direction){
 		float encoderval = fullturnvalue*(degrees/360);
-		double power;
 
 		if (direction.equals("LEFT")) {
 
 			while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
-				op.my_dcmotor_left.setPower(1);
-				op.my_dcmotor_right.setPower(-1);
-				telemetry.addData("Position ","is: "+Math.abs(op.my_dcmotor_left.getCurrentPosition()));
+				dcmotorLeft.setPower(-1);
+				dcmotorRight.setPower(-1);
+				telemetry.addData("Position ","is: "+Math.abs(dcmotorLeft.getCurrentPosition()));
 
 			}
 
 		}
 
 		else {
-			while(Math.abs(op.my_dcmotor_left.getCurrentPosition()) - startPos <= encoderval) {
-				op.my_dcmotor_left.setPower(-1);
-				op.my_dcmotor_right.setPower(1);
+			while(Math.abs(dcmotorLeft.getCurrentPosition()) - startPos <= encoderval) {
+				dcmotorLeft.setPower(-1);
+				dcmotorRight.setPower(1);
 
 			}
 		}
 
-		stop(op.my_dcmotor_left,op.my_dcmotor_right);
+		stop(dcmotorLeft,dcmotorRight);
 
 	}
-
 	private void  stop(DcMotor dc1, DcMotor dc2) {
 		dc1.setPower(0);
 		dc2.setPower(0);
 	}
-
 }
 
