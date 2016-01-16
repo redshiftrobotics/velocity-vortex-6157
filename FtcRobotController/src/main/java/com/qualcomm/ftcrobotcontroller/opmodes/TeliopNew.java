@@ -94,8 +94,8 @@ public class TeliopNew extends OpMode {
 		telemetry.addData("1 Start", "Teleop started at " + startDate);
 		telemetry.addData("2 Status", "running for " + runtime.toString());
 		dcmotorLeft.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
-		dcmotorRight.setPower(Range.clip((-gamepad1.right_stick_y), -1, 1));
-		dcmotorArmLift.setPower(Range.clip((-  gamepad2.left_stick_y), -1, 1));
+		dcmotorRight.setPower(Range.clip((gamepad1.right_stick_y), -1, 1));
+		dcmotorArmLift.setPower(Range.clip((-gamepad2.left_stick_y), -1, 1));
 		dcmotorWheelWheel.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
 
 
@@ -131,7 +131,6 @@ public class TeliopNew extends OpMode {
 		else {
 			dcmotorArmPull.setPower(0);
 		}
-
 
 
 		/*if (gamepad1.right_bumper && front_right_servo_position < 1.0) {

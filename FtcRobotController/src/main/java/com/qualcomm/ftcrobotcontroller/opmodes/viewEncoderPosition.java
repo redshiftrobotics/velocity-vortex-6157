@@ -35,8 +35,8 @@ public class viewEncoderPosition extends OpMode{
 		dcmotorRight = hardwareMap.dcMotor.get("right_drive");
 	}
 	@Override public void loop(){
-		dcmotorLeft.setPower(0.1);
-		dcmotorRight.setPower(0.1);
+		dcmotorLeft.setPower(1);
+		dcmotorRight.setPower(-1);
 		pos = dcmotorLeft.getCurrentPosition();
 		telemetry.addData("Position: ", "is "+pos);
 		temp = "Position: "+pos+" ";
