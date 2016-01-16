@@ -99,14 +99,14 @@ public class TeliopNew extends OpMode {
 		dcmotorWheelWheel.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
 
 
-		if (gamepad1.left_bumper) {
-			robot_left.setPosition(0.5);
+		if (gamepad1.right_bumper) {
+			robot_left.setPosition(1);
 		}
 		else {
-				robot_left.setPosition(1);
+				robot_left.setPosition(0);
 		}
-		if (gamepad1.right_bumper) {
-			robot_right.setPosition(0.5);
+		if (gamepad1.left_bumper) {
+			robot_right.setPosition(0.25);
 		}
 		else {
 				robot_right.setPosition(1);
