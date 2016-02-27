@@ -38,15 +38,15 @@ public class TeliopNew extends OpMode {
 	//Controllers
 	private DcMotorController dcmotorcontroller;
 	private ServoController servoController;
-	private DcMotorController armcontroller;
-	private DcMotorController wheelcontroller;
+	//private DcMotorController armcontroller;
+	//private DcMotorController wheelcontroller;
 	//Motors
 	private DcMotor dcmotorLeft;
 	private DcMotor dcmotorRight;
-	private DcMotor dcmotorArmLift;
-	private DcMotor dcmotorArmPull;
-	private DcMotor dcmotorWheelWheel;
-	private DcMotor dcmotorWheelLift;
+	//private DcMotor dcmotorArmLift;
+	//private DcMotor dcmotorArmPull;
+	//private DcMotor dcmotorWheelWheel;
+	//private DcMotor dcmotorWheelLift;
 
 	//Servos
 	private Servo robot_left;
@@ -66,16 +66,16 @@ public class TeliopNew extends OpMode {
 		runtime.reset();
 
 		dcmotorcontroller = hardwareMap.dcMotorController.get("drive_controller");
-		armcontroller = hardwareMap.dcMotorController.get("arm_controller");
+		//armcontroller = hardwareMap.dcMotorController.get("arm_controller");
 		servoController = hardwareMap.servoController.get("servo_controller");
-		wheelcontroller = hardwareMap.dcMotorController.get("wheel_controller");
+		//wheelcontroller = hardwareMap.dcMotorController.get("wheel_controller");
 
 		dcmotorLeft = hardwareMap.dcMotor.get("left_drive");
 		dcmotorRight = hardwareMap.dcMotor.get("right_drive");
-		dcmotorArmLift = hardwareMap.dcMotor.get("arm_lift");
-		dcmotorArmPull = hardwareMap.dcMotor.get("arm_pull");
-		dcmotorWheelLift = hardwareMap.dcMotor.get("wheel_lift");
-		dcmotorWheelWheel = hardwareMap.dcMotor.get("wheel_wheel");
+		//dcmotorArmLift = hardwareMap.dcMotor.get("arm_lift");
+		//dcmotorArmPull = hardwareMap.dcMotor.get("arm_pull");
+		//dcmotorWheelLift = hardwareMap.dcMotor.get("wheel_lift");
+		//dcmotorWheelWheel = hardwareMap.dcMotor.get("wheel_wheel");
 
 
 		robot_left = hardwareMap.servo.get("leftservo");
@@ -95,15 +95,15 @@ public class TeliopNew extends OpMode {
 		telemetry.addData("2 Status", "running for " + runtime.toString());
 		dcmotorLeft.setPower(Range.clip((gamepad1.left_stick_y), -1, 1));
 		dcmotorRight.setPower(Range.clip((gamepad1.right_stick_y), -1, 1));
-		dcmotorArmLift.setPower(Range.clip((-gamepad2.left_stick_y), -1, 1));
-		dcmotorWheelWheel.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
+		//dcmotorArmLift.setPower(Range.clip((-gamepad2.left_stick_y), -1, 1));
+		//dcmotorWheelWheel.setPower(Range.clip((gamepad2.right_stick_y), -1, 1));
 
 
 		if (gamepad1.right_bumper) {
-			robot_left.setPosition(1);
+			robot_left.setPosition(.9);
 		}
 		else {
-				robot_left.setPosition(0);
+				robot_left.setPosition(.5);
 		}
 		if (gamepad1.left_bumper) {
 			robot_right.setPosition(0.25);
@@ -113,7 +113,7 @@ public class TeliopNew extends OpMode {
 		}
 
 
-		if (gamepad2.right_bumper){
+		/*if (gamepad2.right_bumper){
 				dcmotorWheelLift.setPower(1);
 		}
 		else if(gamepad2.right_trigger > .5)   {
@@ -130,7 +130,7 @@ public class TeliopNew extends OpMode {
 		}
 		else {
 			dcmotorArmPull.setPower(0);
-		}
+		}*/
 
 
 		/*if (gamepad1.right_bumper && front_right_servo_position < 1.0) {
